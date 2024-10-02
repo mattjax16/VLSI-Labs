@@ -34,12 +34,14 @@ M2 vo vi vdd vdd p105 W=300n L=100n
 .PRINT DC V(vin) V(vo)
 .ENDS
 
+* TODO why is there inv0
 xinv0 in out inv0
 
 
 *define parameters
 .param vdd=1.05
 
+* Run a DC test on source ‘vin’scan it from 0 to vdd with the step length of 0.01
 *define analysis voltage
 .dc vin 0 vdd 0.01
 
