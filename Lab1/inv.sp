@@ -27,8 +27,9 @@ vin in gnd
 
 *define circuit connection
 *tranname drain gate source body modulename W L
+* TODO question how to choose W and L
 .SUBCKT inv0 vi vo
-M1 vo vi gnd gnd n105 W=200n L=100n
+M1 vo vi gnd gnd n105 W=200n L=100n 
 M2 vo vi vdd vdd p105 W=300n L=100n
 .PRINT DC V(vin) V(vo)
 .ENDS
