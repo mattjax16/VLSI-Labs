@@ -1,4 +1,5 @@
-Combined NMOS and PMOS Ids vs Vgs for different Vds
+** THIS IS FROM ALIAH
+* Combined NMOS and PMOS Ids vs Vgs for different Vds
 
 *Iibrary file
 .lib '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/tech/hspice/saed32nm.lib' TT
@@ -23,26 +24,24 @@ vbs_pmos pb gnd 0
 * NMOS Transistor
 .model n105 nmos level=54
 M1 nd ng gnd nb n105 W=300n L=100n
-
-* PMOS Transistor
-M2 pd pg gnd pb p105 W=300n L=100n
+* M2 nd ng gnd nb n105 W=300n L=100n
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
 
 
-vvdd vdd 0 1.1v
+vvdd vdd 0 1.05v
 vgnd gnd 0 0v
 
 * Sweep Vgs from 0 to 1.1V for different Vds
-* .dc vgs_nmos 0 1.1 0.02 sweep vds_nmos 0 1.1 0.2
-.dc vgs_nmos 0 1.1 0.02 
+.dc vgs_nmos 0 1.1 0.02 sweep vds_nmos 0 1.1 0.2
+
 * Probe the drain current Ids for NMOS
 
 *probe transistor current (Ids)
-* .PROBE DC i(M1) 
+.PROBE DC i(M1) 
 
 *probe voltage threshold (Vt)
-* .PROBE lv9(M1)  
+.PROBE lv9(M1)  
 
 * --- PMOS Section ---
 * NOTE: doesnt work
@@ -57,10 +56,9 @@ vgnd gnd 0 0v
 *vds_pmos pd vdd 0
 
 * Sweep Vgs from -1.1V to 0V for different Vds
-.dc vgs_pmos -1.1 0 0.05 sweep vds_pmos -1.1 0 0.2
+*.dc vgs_pmos -1.1 0 0.05 sweep vds_pmos -1.1 0 0.2
 
 * Probe the drain current Ids for PMOS
-.PROBE DC i(M2)
-.PROBE lv9(M2) 
+*.PROBE DC i(M2)
 
 .end
