@@ -62,8 +62,8 @@ M2 pd pg gnd pb p105 W=300n L=100n
 
 
 * Sweep Vgs from -1.1V to 0V for different Vds
-* .dc vgs_pmos -1.1 0 0.01 sweep vds_pmos -1.1 0 0.2
-.dc vgs_pmos -1.1 0 0.01 
+.dc vgs_pmos -1.1 0 0.01 sweep vds_pmos -1.1 0 0.2
+* .dc vgs_pmos -1.1 0 0.01 
 
 * Probe the drain current Ids for PMOS
 .PROBE DC i(M2)
