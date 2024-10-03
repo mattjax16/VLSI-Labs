@@ -30,10 +30,10 @@ vgnd gnd 0 0v
 .dc vdstest 0 5 0.05 sweep vgs 0 5 1
 *probe Ids (gate current)
 .probe DC i(M1)
-
-
+.probe DC i(M2)
 
 
 * .PROBE DC i(M1)                              *probe transistor current (Ids)
 .PROBE lv9(M1)                                *probe threshold voltage  (Vt)
+.PROBE lv9(M2) 
 .end
