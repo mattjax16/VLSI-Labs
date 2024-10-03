@@ -25,7 +25,7 @@ vbs_pmos pb gnd 0
 M1 nd ng gnd nb n105 W=300n L=100n
 
 * PMOS Transistor
-M2 pd pg vdd pb p105 W=300n L=100n
+M2 pd pg gnd pb p105 W=300n L=100n
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
 
@@ -34,15 +34,15 @@ vvdd vdd 0 1.1v
 vgnd gnd 0 0v
 
 * Sweep Vgs from 0 to 1.1V for different Vds
-.dc vgs_nmos 0 1.1 0.02 sweep vds_nmos 0 1.1 0.2
-
+* .dc vgs_nmos 0 1.1 0.02 sweep vds_nmos 0 1.1 0.2
+.dc vgs_nmos 0 1.1 0.02 
 * Probe the drain current Ids for NMOS
 
 *probe transistor current (Ids)
-.PROBE DC i(M1) 
+* .PROBE DC i(M1) 
 
 *probe voltage threshold (Vt)
-.PROBE lv9(M1)  
+* .PROBE lv9(M1)  
 
 * --- PMOS Section ---
 * NOTE: doesnt work
