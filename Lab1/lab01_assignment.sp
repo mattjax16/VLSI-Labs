@@ -27,7 +27,7 @@ vgnd gnd 0 0v
 
 
 *start dc analysis(sweep vds)
-.dc vds_test 0 5 0.05 sweep vgs 0 5 1
+.dc vdstest 0 5 0.05 sweep vgs 0 5 1
 *probe Ids (gate current)
 .probe DC i(M1)
 
