@@ -44,7 +44,11 @@ vgnd gnd 0 0v
 * .dc vgs -1.1 0 0.01 
 
 * p4 Vgs: -1.1; Vds: -1.1; Vbs: [-1.1,1.1] (PMOS)
-.dc vbs -1.1 1.1 0.01 
+* .dc vbs -1.1 1.1 0.01 
+
+*p5 Vds: [-1.1,0]; Vgs: -1.1(PMOS)
+.dc vds -1.1 0 0.01
+
 
 * Probe the drain current Ids for NMOS
 
