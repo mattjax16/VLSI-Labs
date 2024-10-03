@@ -48,7 +48,7 @@ vgnd gnd 0 0v
 
 * Voltage sources for PMOS
 vgs_pmos pg gnd -1.1
-vds_pmos pd gnd 0
+vds_pmos pd gnd -1.1
 vbs_pmos pb gnd 0
 
 
