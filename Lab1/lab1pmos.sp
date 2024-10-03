@@ -8,8 +8,9 @@ PMOS Transistor Simulations
 .option post
 .GLOBAL gnd vdd
 
-* Param for testing length
-.param l_n=10
+* Params for testing length and temp
+.param l_n=100
+.param temp=27
 
 
 
@@ -25,20 +26,14 @@ vds d gnd 0.2
 
 * PMOS Transistor
 .model p105 pmos level=54
-*M1 d g gnd b p105 W=300n L=100n
-* Uncomment out bellow for length test (p6)
 M1 d g gnd b p105 W=300n L=l_n
 
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
 
 
-vvdd vdd 0 1.1v
-vgnd gnd 0 0v
-
-* Sweep Vgs from 0 to 1.1V for different Vds
-* .dc vgs -1.1 0 0.02
-
+* vvdd vdd 0 1.1v
+* vgnd gnd 0 0v
 
 * p1 Vgs: [-1.1, 0]; Vds: -1.1: 0.2: 0 (PMOS)
 * .dc vgs -1.1 0 0.01 sweep vds -1.1 0 0.2
@@ -57,6 +52,9 @@ vgnd gnd 0 0v
 
 *p6 Length: [50n,200n] Vds: 0.2
 .dc l_n 50n 200n 1n
+
+*p7 Temp: [-55,125] Vds: 0.2
+.dc temp -55 125 1 
 
 * Probe the drain current Ids for NMOS
 
