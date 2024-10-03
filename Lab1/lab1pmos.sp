@@ -33,8 +33,8 @@ M1 d g gnd b p105 W=300n L=100
 
 
 
-* vvdd vdd 0 1.1v
-* vgnd gnd 0 0v
+vvdd vdd 0 1.1v
+vgnd gnd 0 0v
 
 * p1 Vgs: [-1.1, 0]; Vds: -1.1: 0.2: 0 (PMOS)
 .dc vgs -1.1 0 0.01 sweep vds -1.1 0 0.2
