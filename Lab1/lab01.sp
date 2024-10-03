@@ -12,7 +12,7 @@ Combined NMOS and PMOS Ids vs Vgs for different Vds
 * --- NMOS Section ---
 
 * Voltage sources for NMOS
-vgs_nmos ng gnd 0
+vgs_nmos ng gnd 1.05
 vds_nmos nd gnd 0
 
 * NMOS Transistor
