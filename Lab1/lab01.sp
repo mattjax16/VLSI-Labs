@@ -26,7 +26,7 @@ vvdd vdd 0 1.05v
 vgnd gnd 0 0v
 
 * Sweep Vgs from 0 to 1.1V for different Vds
-.dc vgs_nmos 0 1.1 0.05 sweep vds_nmos 0 1.1 0.2
+.dc vgs_nmos 0 1.05 0.01 sweep vds_nmos 0 1.05 0.2
 
 * Probe the drain current Ids for NMOS
 .PROBE DC i(M1)
