@@ -9,15 +9,16 @@ PMOS Transistor Simulations
 .GLOBAL gnd vdd
 
 * Params for testing length and temp
-.param l_n=100
+* .param l_n=100
 * .param temp=27
 
 
 
 * Voltage sources for PMOS
 vgs g gnd -1.1
-vbs b gnd 0
 vds d gnd -1.1
+vbs b gnd 0
+
 * Uncomment Out below for length problem (un comment above for rest)
 * vds d gnd 0.2
 
@@ -26,7 +27,7 @@ vds d gnd -1.1
 
 * PMOS Transistor
 .model p105 pmos level=54
-M1 d g gnd b p105 W=300n L=l_n
+M1 d g gnd b p105 W=300n L=100
 
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 

@@ -9,15 +9,15 @@ NMOS Transistor Simulations
 .GLOBAL gnd vdd
 
 * Param for testing length
-.param l_n=100
-.param temp=27
+* .param l_n=100
+* .param temp=27
 
 
 
 * Voltage sources for NMOS
 vgs g gnd 1.1
-vbs b gnd 0
 vds d gnd 1.1
+vbs b gnd 0
 * Uncomment Out below for length problem (un comment above for rest)
 * vds d gnd 0.2
 
