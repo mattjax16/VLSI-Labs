@@ -41,10 +41,10 @@ vgnd gnd 0 0v
 * .dc vgs 0 1.1 0.01 sweep vds 0 1.1 0.2
 
 * p2 Vgs: 0:0.2:1.1; Vds: [0,1.1] (NMOS)
-.dc vds 0 1.1 0.01 sweep vgs 0 1.1 0.2 
+* .dc vds 0 1.1 0.01 sweep vgs 0 1.1 0.2 
 
 * p3 Vgs:  [0,1.1]; Vds: 1.1 (NMOS)
-* .dc vgs 0 1.1 0.01 
+.dc vgs 0 1.1 0.01 
 
 * p4 Vgs: 1.1; Vds: 1.1; Vbs: [-1.1,1.1] (NMOS)
 * .dc vbs -1.1 1.1 0.01 

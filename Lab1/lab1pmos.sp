@@ -41,7 +41,7 @@ vgnd gnd 0 0v
 * .dc vgs -1.1 0 0.01 sweep vds -1.1 0 0.2
 
 * p2 Vgs: [-1.1, 0]; Vds: -1.1: 0.2: 0 (PMOS)
-* .dc vds -1.1 0 0.01 sweep vgs -1.1 0 0.2 
+.dc vds -1.1 0 0.01 sweep vgs -1.1 0 0.2 
 
 * p3 Vgs: [-1.1:0]; Vds: -1.1(PMOS)
 * .dc vgs -1.1 0 0.01 
@@ -56,7 +56,7 @@ vgnd gnd 0 0v
 * .dc l_n 50n 200n 1n
 
 *p7 TEMP: [-55,125] (NMOS & PMOS)
-.dc temp -55 125 1
+* .dc temp -55 125 1
 
 * Probe the drain current Ids for PMOS
 
