@@ -64,6 +64,6 @@ vgnd gnd 0 0v
 .PROBE DC i(M1) 
 
 *probe voltage threshold (Vt)
-.PROBE lv9(M1)  
+* .PROBE lv9(M1)  
 
 .end
