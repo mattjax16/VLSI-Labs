@@ -32,6 +32,7 @@ vin in gnd
 M1 vo vi gnd gnd n105 W=200n L=100n 
 M2 vo vi vdd vdd p105 W=300n L=100n
 * .PRINT DC V(vin) V(vo)
+* TODO ask if above print line is optinal seems to be
 .ENDS
 
 * TODO why is there inv0
