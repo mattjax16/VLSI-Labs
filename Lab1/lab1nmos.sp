@@ -26,7 +26,7 @@ vds d gnd 1.1
 
 * NMOS Transistor
 .model n105 nmos level=54
-M1 d g gnd b n105 W=300n L=l_n
+M1 d g gnd b n105 W=300n L=100
 
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
