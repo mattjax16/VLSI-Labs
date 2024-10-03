@@ -26,7 +26,7 @@ vbs_pmos pb gnd 0
 M1 nd ng gnd nb n105 W=300n L=100n
 
 * PMOS Transistor
-M2 pd pg gnd pb p105 W=300n L=100n
+M2 pd pg vdd pb p105 W=300n L=100n
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
 
