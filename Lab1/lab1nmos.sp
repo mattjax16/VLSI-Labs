@@ -14,11 +14,11 @@
 
 * Voltage sources for NMOS
 vgs g gnd 1.1
-* vds d gnd 1.1
+vds d gnd 1.1
 vbs b gnd 0
 
 * uncomment below for length and temp
-vds d gnd 0.2
+* vds d gnd 0.2
 
 
 
@@ -51,10 +51,10 @@ vgnd gnd 0 0v
 * .dc vds 0 1 0.01
 
 *p6 Length: [50n,200n] Vds: 0.2
-.dc l_n 50n 200n 1n
+* .dc l_n 50n 200n 1n
 
 *p7 TEMP: [-55,125] (NMOS & PMOS)
-* .dc temp -55 125 1
+.dc temp -55 125 1
 
 
 *probe transistor current (Ids)
