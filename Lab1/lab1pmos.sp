@@ -43,6 +43,9 @@ vgnd gnd 0 0v
 * p3 Vgs: [-1.1:0]; Vds: -1.1(PMOS)
 .dc vgs -1.1 0 0.01 
 
+* p4 Vgs: -1.1; Vds: -1.1; Vbs: [-1.1,1.1] (PMOS)
+.dc vbs -1.1 1.1 0.01 
+
 * Probe the drain current Ids for NMOS
 
 *probe transistor current (Ids)
