@@ -38,25 +38,25 @@ vgnd gnd 0 0v
 
 
 * p1 Vgs: [0, 1.1]; Vds: 0: 0.2: 1.1 (NMOS)(min:step:max)
-.dc vgs 0 1.1 0.01 sweep vds 0 1.1 0.2
+* .dc vgs 0 1.1 0.01 sweep vds 0 1.1 0.2
 
-* p2 Vgs: [-1.1, 0]; Vds: -1.1: 0.2: 0 (PMOS)
-* .dc vds -1.1 0 0.01 sweep vgs -1.1 0 0.2 
+* p2 Vgs: 0:0.2:1.1; Vds: [0,1.1] (NMOS)
+.dc vds 0 1.1 0.01 sweep vgs 0 1.1 0.2 
 
-* p3 Vgs: [-1.1:0]; Vds: -1.1(PMOS)
-* .dc vgs -1.1 0 0.01 
+* p3 Vgs:  [0,1.1]; Vds: 1.1 (NMOS)
+* .dc vgs 0 1.1 0.01 
 
-* p4 Vgs: -1.1; Vds: -1.1; Vbs: [-1.1,1.1] (PMOS)
+* p4 Vgs: 1.1; Vds: 1.1; Vbs: [-1.1,1.1] (NMOS)
 * .dc vbs -1.1 1.1 0.01 
 
-*p5 Vds: [-1.1,0]; Vgs: -1.1(PMOS)
-* .dc vds -1.1 0 0.01
+*p5 Vds: [0, 1.1]; Vgs: 1.1 (NMOS
+* .dc vds 0 1 0.01
 
 *p6 Length: [50n,200n] Vds: 0.2
 * .dc l_n 50n 200n 1n
 
 *p7 TEMP: [-55,125] (NMOS & PMOS)
-.dc temp -55 125 1
+* .dc temp -55 125 1
 
 * Probe the drain current Ids for PMOS
 
