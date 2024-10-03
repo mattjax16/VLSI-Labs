@@ -10,6 +10,10 @@
 
 * --- PMOS Section ---
 
+* Params for adjusting length and temp
+.param l_n=100n
+.param temp=27
+
 * Voltage sources for PMOS
 vgs g gnd -1.1
 vds d gnd -1.1
@@ -20,7 +24,7 @@ vbs b gnd 0
 
 * PMOS Transistor
 .model p105 pmos level=54
-M1 d g gnd b p105 W=300n L=100n
+M1 d g gnd b p105 W=300n L=l_n
 
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
