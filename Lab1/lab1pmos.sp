@@ -8,7 +8,6 @@
 .option post
 .GLOBAL gnd vdd
 
-* --- PMOS Section ---
 
 * Params for adjusting length and temp
 .param l_n=100n
@@ -58,7 +57,6 @@ vgnd gnd 0 0v
 *p7 TEMP: [-55,125] (NMOS & PMOS)
 * .dc temp -55 125 1
 
-* Probe the drain current Ids for PMOS
 
 *probe transistor current (Ids)
 .PROBE DC i(M1) 
