@@ -1,4 +1,4 @@
-Inverter 
+dsa
  
 
 *library file 
@@ -32,13 +32,13 @@ vgnd gnd 0 0v
  
 
 *.dc vgs 0 1.1 0.01 sweep vds 0 1.1 0.2 
-.dc vds 0 1.1 0.01 sweep vgs 0 1.1 0.2         *Ids vs Vds 
+.dc vds 0 1.1 0.01 sweep vgs 0 1.1 0.2         
 *.dc vbs -1.1 1.1 0.1 
 *.dc vds 0 1.1 0.2 
 *.dc l_n 20n 100n 1n 
 *.dc temp -55 125 5 
  
 
-.PROBE DC i(M1)                              *probe transistor current (Ids) 
+.PROBE DC i(M1)                              
 *.PROBE lv9(M1)                                *probe threshold voltage  (Vt) 
 .end 

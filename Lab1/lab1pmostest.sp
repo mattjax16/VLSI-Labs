@@ -1,7 +1,5 @@
 lab01pmos.sp 
  
-
-pmos 
 *Iibrary file 
 .lib '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/tech/hspice/saed32nm.lib'$ 
 .include '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/lib/stdcell_rvt/hspic$ 
