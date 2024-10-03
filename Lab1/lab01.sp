@@ -14,10 +14,11 @@
 * Voltage sources for NMOS
 vgs_nmos ng gnd 1.05
 vds_nmos nd gnd 0
+vbs_nmos nb gnd 0
 
 * NMOS Transistor
 .model n105 nmos level=54
-M1 nd ng gnd gnd n105 W=300n L=100n
+M1 nd ng gnd nb n105 W=300n L=100n
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
 
