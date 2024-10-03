@@ -1,4 +1,5 @@
-* PMOS baby
+** THIS IS FROM ALIAH
+* Combined NMOS and PMOS Ids vs Vgs for different Vds
 
 *Iibrary file
 .lib '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/tech/hspice/saed32nm.lib' TT
@@ -8,9 +9,9 @@
 .option post
 .GLOBAL gnd vdd
 
-* --- PMOS Section ---
+* --- NMOS Section ---
 
-* Voltage sources for PMOS
+* Voltage sources for NMOS
 vgs g gnd -1.1
 vds d gnd -1.1
 vbs b gnd 0
@@ -49,7 +50,7 @@ vgnd gnd 0 0v
 .dc vds -1.1 0 0.01
 
 
-* Probe the drain current Ids for PMOS
+* Probe the drain current Ids for NMOS
 
 *probe transistor current (Ids)
 .PROBE DC i(M1) 
