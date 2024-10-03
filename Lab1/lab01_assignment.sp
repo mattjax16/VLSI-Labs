@@ -10,13 +10,14 @@ Inverter
 
 vgs g gnd 1.05
 vds d gnd 1.05
+vdstest d gnd 1.05
 vbs b gnd 0
 
 .model n105 nmos level=54
 .model p105 pmos level=54
 
 M1 d g gnd b n105 W=300n L=100n
-* M2 d g vdd b p105 W=300n L=100n
+M2 d g vdd b p105 W=300n L=100n
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
 
