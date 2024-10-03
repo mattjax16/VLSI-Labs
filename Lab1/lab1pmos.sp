@@ -13,7 +13,7 @@
 
 * Voltage sources for NMOS
 vgs g gnd -1.1
-vds d gnd 0
+vds d gnd -1.1
 vbs b gnd 0
 
 
@@ -21,13 +21,13 @@ vbs b gnd 0
 
 * PMOS Transistor
 .model p105 pmos level=54
-M1 d g vds b p105 W=300n L=100n
+M1 d g gnd b p105 W=300n L=100n
 
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
 
 
-vvdd vdd 0 1.05v
+vvdd vdd 0 1.1v
 vgnd gnd 0 0v
 
 * Sweep Vgs from 0 to 1.1V for different Vds
