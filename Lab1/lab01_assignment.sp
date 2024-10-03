@@ -23,8 +23,6 @@ vgnd gnd 0 0v
       
 .dc vds 0 1.05 0.01 sweep vgs 0 1.05 0.2         *Ids vs Vds
 
-.dc vdstest 0 1.05 0.01 sweep vgs 0 1.05 0.2
-
 
 
 
