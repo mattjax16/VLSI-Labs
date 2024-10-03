@@ -44,6 +44,9 @@ vgnd gnd 0 0v
 * --- PMOS Section ---
 * NOTE: doesnt work
 
+
+
+* Voltage sources for PMOS
 vgs_pmos pg gnd -1.1
 vds_pmos pd gnd 0
 vbs_pmos pb gnd 0
@@ -57,14 +60,12 @@ vbs_pmos pb gnd 0
 M2 pd pg gnd pb p105 W=300n L=100n
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
-* Voltage sources for PMOS
-*vgs_pmos pg vdd 0
-*vds_pmos pd vdd 0
 
 * Sweep Vgs from -1.1V to 0V for different Vds
-*.dc vgs_pmos -1.1 0 0.05 sweep vds_pmos -1.1 0 0.2
+* .dc vgs_pmos -1.1 0 0.01 sweep vds_pmos -1.1 0 0.2
+.dc vgs_pmos -1.1 0 0.01 
 
 * Probe the drain current Ids for PMOS
-*.PROBE DC i(M2)
+.PROBE DC i(M2)
 
 .end
