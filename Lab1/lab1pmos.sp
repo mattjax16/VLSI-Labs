@@ -9,12 +9,17 @@
 .option post
 .GLOBAL gnd vdd
 
+* Param for testing length
+.param l_n=10
+
 * --- NMOS Section ---
 
 * Voltage sources for NMOS
 vgs g gnd -1.1
-vds d gnd -1.1
+* vds d gnd -1.1
 vbs b gnd 0
+* Comment Out below for length problem
+vds d gnd 0.2
 
 
 
@@ -47,8 +52,10 @@ vgnd gnd 0 0v
 * .dc vbs -1.1 1.1 0.01 
 
 *p5 Vds: [-1.1,0]; Vgs: -1.1(PMOS)
-.dc vds -1.1 0 0.01
+* .dc vds -1.1 0 0.01
 
+*p6 Length: [50n,200n] Vds: 0.2
+.dc l_n 50n 200n 1n
 
 * Probe the drain current Ids for NMOS
 
