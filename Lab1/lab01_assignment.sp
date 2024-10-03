@@ -17,7 +17,7 @@ vbs b gnd 0
 .model p105 pmos level=54
 
 M1 d g gnd b n105 W=300n L=100n
-M2 d g vdd b p105 W=300n L=100n
+* M2 d g vdd b p105 W=300n L=100n
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
 
@@ -28,10 +28,10 @@ vgnd gnd 0 0v
 
 
 *start dc analysis(sweep vds)
-.dc vdstest 0 5 0.05 sweep vgs 0 5 1
+* .dc vdstest 0 5 0.05 sweep vgs 0 5 1
 *probe Ids (gate current)
 .probe DC i(M1)
-.probe DC i(M2)
+* .probe DC i(M2)
 
 
 * .PROBE DC i(M1)                              *probe transistor current (Ids)
