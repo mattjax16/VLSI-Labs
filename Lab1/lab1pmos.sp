@@ -39,7 +39,7 @@ vgnd gnd 0 0v
 * p1 Vgs: [-1.1, 0]; Vds: -1.1: 0.2: 0 (PMOS)
 .dc vgs -1.1 0 0.01 sweep vds -1.1 0 0.2
 
-* p2 Vgs: [-1.1, 0]; Vds: -1.1: 0.2: 0 (PMOS)
+* p2 Vgs: -1.1:0.2:0; Vds: [-1.1,0] (PMOS)
 * .dc vds -1.1 0 0.01 sweep vgs -1.1 0 0.2 
 
 * p3 Vgs: [-1.1:0]; Vds: -1.1(PMOS)
@@ -63,6 +63,6 @@ vgnd gnd 0 0v
 .PROBE DC i(M1) 
 
 *probe voltage threshold (Vt)
-.PROBE lv9(M1)  
+* .PROBE lv9(M1)  
 
 .end
