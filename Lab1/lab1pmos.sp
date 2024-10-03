@@ -12,7 +12,7 @@
 
 * Params for adjusting length and temp
 .param l_n=100n
-.param temp=27
+.param temp=0
 
 * Voltage sources for PMOS
 vgs g gnd -1.1
@@ -38,7 +38,7 @@ vgnd gnd 0 0v
 
 
 * p1 Vgs: [-1.1, 0]; Vds: -1.1: 0.2: 0 (PMOS)
-.dc vgs -1.1 0 0.01 sweep vds -1.1 0 0.2
+* .dc vgs -1.1 0 0.01 sweep vds -1.1 0 0.2
 
 * p2 Vgs: [-1.1, 0]; Vds: -1.1: 0.2: 0 (PMOS)
 * .dc vds -1.1 0 0.01 sweep vgs -1.1 0 0.2 
@@ -51,6 +51,10 @@ vgnd gnd 0 0v
 
 *p5 Vds: [-1.1,0]; Vgs: -1.1(PMOS)
 * .dc vds -1.1 0 0.01
+
+
+*p6 Length: [50n,200n] Vds: 0.2
+.dc l_n 50n 200n 1n
 
 
 * Probe the drain current Ids for PMOS
