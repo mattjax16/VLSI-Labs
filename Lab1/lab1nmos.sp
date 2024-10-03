@@ -47,10 +47,10 @@ vgnd gnd 0 0v
 * .dc vgs 0 1.1 0.01 
 
 * p4 Vgs: 1.1; Vds: 1.1; Vbs: [-1.1,1.1] (NMOS)
-.dc vbs -1.1 1.1 0.01 
+* .dc vbs -1.1 1.1 0.01 
 
-*p5 Vds: [0, 1.1]; Vgs: 1.1 (NMOS
-* .dc vds 0 1 0.01
+*p5 Vds: [0, 1.1]; Vgs: 1.1 (NMOS)
+.dc vds 0 1 0.01
 
 *p6 Length: [50n,200n] Vds: 0.2
 * .dc l_n 50n 200n 1n
