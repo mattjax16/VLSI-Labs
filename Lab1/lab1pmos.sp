@@ -26,7 +26,9 @@ vds d gnd 0.2
 
 * PMOS Transistor
 .model p105 pmos level=54
-M1 d g gnd b p105 W=300n L=100n
+*M1 d g gnd b p105 W=300n L=100n
+* Uncomment out bellow for length test (p6)
+M1 d g gnd b p105 W=300n L=l_n
 
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
