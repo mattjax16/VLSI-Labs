@@ -20,11 +20,15 @@ M1 nd ng gnd gnd n105 W=300n L=100n
 vgs_nmos ng gnd 0
 vds_nmos nd gnd 0
 
+vvdd vdd 0 1.05v
+vgnd gnd 0 0v
+
 * Sweep Vgs from 0 to 1.1V for different Vds
 .dc vgs_nmos 0 1.1 0.05 sweep vds_nmos 0 1.1 0.2
 
 * Probe the drain current Ids for NMOS
 .PROBE DC i(M1)
+.PROBE lv9(M1)  
 
 * --- PMOS Section ---
 * NOTE: doesnt work
