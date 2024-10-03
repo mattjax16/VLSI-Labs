@@ -1,5 +1,4 @@
-** THIS IS FROM ALIAH
-* Combined NMOS and PMOS Ids vs Vgs for different Vds
+Combined NMOS and PMOS Ids vs Vgs for different Vds
 
 *Iibrary file
 .lib '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/tech/hspice/saed32nm.lib' TT
