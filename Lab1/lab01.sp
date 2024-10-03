@@ -23,8 +23,9 @@ vbs_pmos pb gnd 0
 
 * NMOS Transistor
 .model n105 nmos level=54
+.model p105 pmos level=54
 M1 nd ng gnd nb n105 W=300n L=100n
-* M2 nd ng gnd nb n105 W=300n L=100n
+M2 pd pg gnd pb p105 W=300n L=100n
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
 
