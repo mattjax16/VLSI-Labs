@@ -1,4 +1,4 @@
-PMOS Transistor Simulations
+NMOS Transistor Simulations
 
 *Iibrary file
 .lib '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/tech/hspice/saed32nm.lib' TT
@@ -13,10 +13,10 @@ PMOS Transistor Simulations
 
 
 
-* Voltage sources for PMOS
-vgs g gnd -1.1
+* Voltage sources for NMOS
+vgs g gnd 1.1
 vbs b gnd 0
-* vds d gnd -1.1
+* vds d gnd 1.1
 * Uncomment Out below for length problem (un comment above for rest)
 vds d gnd 0.2
 
