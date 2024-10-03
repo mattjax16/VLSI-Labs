@@ -12,9 +12,11 @@
 * --- NMOS Section ---
 
 * Voltage sources for NMOS
-vgs_nmos ng gnd 1.05
+vgs_nmos ng gnd 1.1
 vds_nmos nd gnd 0
 vbs_nmos nb gnd 0
+
+
 
 * NMOS Transistor
 .model n105 nmos level=54
@@ -27,10 +29,14 @@ vvdd vdd 0 1.05v
 vgnd gnd 0 0v
 
 * Sweep Vgs from 0 to 1.1V for different Vds
-.dc vgs_nmos 0 1.05 0.01 sweep vds_nmos 0 1.05 0.2
+.dc vgs_nmos 0 1.1 0.02 sweep vds_nmos 0 1.1 0.2
 
 * Probe the drain current Ids for NMOS
-.PROBE DC i(M1)
+
+*probe transistor current (Ids)
+.PROBE DC i(M1) 
+
+*probe voltage threshold (Vt)
 .PROBE lv9(M1)  
 
 * --- PMOS Section ---
