@@ -55,7 +55,7 @@ vgnd gnd 0 0v
 * .dc l_n 50n 200n 1n
 
 *p7 TEMP: [-55,125] (NMOS & PMOS)
-* .dc temp -55 125 1
+.dc temp -55 125 1
 
 
 *probe transistor current (Ids)
