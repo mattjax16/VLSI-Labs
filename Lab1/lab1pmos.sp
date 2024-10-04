@@ -15,11 +15,11 @@
 
 * Voltage sources for PMOS
 vgs g gnd -1.1
-vds d gnd -1.1
+* vds d gnd -1.1
 vbs b gnd 0
 
 * uncomment below for length and temp
-* vds d gnd 0.2
+vds d gnd 0.2
 
 
 
