@@ -10,7 +10,7 @@
 
 * Params for adjusting length and temp
 .param l_n=100n
-.param temp=0
+.param temp
 
 * Voltage sources for NMOS
 vgs g gnd 1.1
