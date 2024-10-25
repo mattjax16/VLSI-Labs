@@ -1,133 +1,109 @@
-import re
+import pandas as pd
 import argparse
 
 
-def parse_value(value_str, to_microamps=False):
-    """
-    Parse values with engineering notation (e.g., '1.2345u' or '123.45n')
-    Returns float in base units or microamps for current values
+def process_hspice_data(data_text):
+    # Initialize lists to store the data
+    voltages = []
+    currents = []
+    threshold_voltages = []
 
-    Args:
-        value_str: string containing number and optional unit
-        to_microamps: if True, converts the value to microamps
-    """
-    if value_str == "0." or value_str == "0":
-        return 0.0
+    # Find the starting points for both datasets
+    lines = data_text.split('\n')
 
-    # Multipliers for different unit prefixes
-    multipliers = {
-        "n": 1e-9,  # nano
-        "u": 1e-6,  # micro
-        "m": 1e-3,  # milli
-        "": 1.0,  # no prefix
-    }
-
-    # Conversion factors to microamps
-    to_ua_multipliers = {
-        "n": 1e-3,  # nano -> micro
-        "u": 1.0,  # micro -> micro
-        "m": 1e3,  # milli -> micro
-        "": 1e6,  # base -> micro
-    }
-
-    # Extract number and unit using regex
-    match = re.match(r"([-+]?\d*\.?\d+)([num])?", value_str)
-    if match:
-        number = float(match.group(1))
-        unit = match.group(2) if match.group(2) else ""
-
-        if to_microamps:
-            return number * to_ua_multipliers[unit]
-        else:
-            return number * multipliers[unit]
-    return 0.0
-
-
-def process_data(text):
-    """Process the raw HSPICE text and return voltage-current-threshold pairs"""
-    data = []
-
-    # Split text into lines
-    lines = text.strip().split("\n")
-
-    # Process the file in two passes - one for V-I data and one for threshold voltage
-    voltage_data = {}  # Store voltage and current temporarily
-    threshold_data = {}  # Store threshold voltage data
-
-    current_section = None
+    current_data = False
+    threshold_data = False
 
     for line in lines:
-        line = line.strip()
-
         # Skip empty lines
-        if not line:
+        if not line.strip():
             continue
 
-        # Check for new data section
-        if "volt         current" in line:
-            current_section = "vi"
-            continue
-        elif "volt         lv9" in line:
-            current_section = "threshold"
+        # Check for start of current data
+        if line.strip().startswith('volt         current'):
+            current_data = True
+            threshold_data = False
             continue
 
-        # Skip header lines and non-data lines
-        if "x" in line or "m1" in line or "y" in line or not line[0].isspace():
+        # Check for start of threshold voltage data
+        if line.strip().startswith('volt         lv9'):
+            current_data = False
+            threshold_data = True
             continue
 
-        # Parse data lines
-        parts = line.strip().split()
-        if len(parts) >= 2:
-            voltage = parse_value(parts[0])
-            if current_section == "vi":
-                current = parse_value(parts[1], to_microamps=True)
-                voltage_data[voltage] = current
-            elif current_section == "threshold":
-                threshold = parse_value(parts[1])
-                threshold_data[voltage] = threshold
+        # Process data lines
+        if current_data or threshold_data:
+            # Skip the headers
+            if 'm1' in line:
+                continue
 
-    # Combine the data
-    voltages = sorted(set(voltage_data.keys()) & set(threshold_data.keys()))
-    for voltage in voltages:
-        data.append((voltage, voltage_data[voltage], threshold_data[voltage]))
+            parts = line.strip().split()
+            if len(parts) >= 2:
+                try:
+                    # Convert voltage to millivolts
+                    if 'm' in parts[0]:
+                        # Already in millivolts, just remove the 'm' suffix
+                        voltage = float(parts[0].rstrip('m'))
+                    else:
+                        # Convert V to mV
+                        voltage = float(parts[0]) * 1000
 
-    return data
+                    if current_data:
+                        # Convert all current values to microamps
+                        value = parts[1].rstrip('u').rstrip('m')
+                        if 'm' in parts[1]:
+                            current = float(value) * 1000  # Convert mA to μA
+                        else:
+                            current = float(value)  # Already in μA
+                        voltages.append(voltage)
+                        currents.append(current)
+                    elif threshold_data:
+                        # Handle threshold voltage values
+                        # Already in millivolts, just remove the 'm' suffix
+                        value = float(parts[1].rstrip('m'))
+                        threshold_voltages.append(value)
+                except ValueError:
+                    continue
 
+    # Create DataFrame
+    df = pd.DataFrame({
+        'Voltage_mV': voltages[:len(threshold_voltages)],  # Make sure lengths match
+        'Current_uA': currents[:len(threshold_voltages)],
+        'Threshold_Voltage_mV': threshold_voltages
+    })
 
-def save_to_csv(data_triplets, filename="voltage_current_data.csv"):
-    """Save the processed data to a CSV file"""
-    with open(filename, "w") as f:
-        f.write("voltage,current,threshold\n")  # voltage in V, current in µA, threshold in V
-        for voltage, current, threshold in data_triplets:
-            f.write(f"{voltage:.12f},{current:.12f},{threshold:.12f}\n")
+    return df
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Convert HSPICE output to CSV.')
-    parser.add_argument('input_file', help='Input text file containing HSPICE data')
-    parser.add_argument('output_file', help='Output CSV file name')
+    # Set up command line argument parser
+    parser = argparse.ArgumentParser(description='Process HSPICE data file to CSV')
+    parser.add_argument('input_file', help='Input HSPICE text file path')
+    parser.add_argument('output_file', help='Output CSV file path')
+
+    # Parse arguments
     args = parser.parse_args()
 
+    # Read input file
     try:
-        # Read the input file
-        with open(args.input_file, "r") as f:
-            raw_data = f.read()
-
-        # Process the data
-        data_triplets = process_data(raw_data)
-
-        # Save processed data to CSV
-        save_to_csv(data_triplets, args.output_file)
-        print(f"Data successfully saved to {args.output_file}")
-        print("Note: Current values are in microamps (µA), voltages in volts (V)")
-
-        # Print first few entries as example
-        print("\nFirst few entries:")
-        for voltage, current, threshold in data_triplets[:5]:
-            print(f"Voltage: {voltage:.6f} V, Current: {current:.6f} µA, Threshold: {threshold:.6f} V")
-
+        with open(args.input_file, 'r') as file:
+            data_text = file.read()
+    except FileNotFoundError:
+        print(f"Error: Input file '{args.input_file}' not found")
+        return
     except Exception as e:
-        print(f"Error processing file: {e}")
+        print(f"Error reading input file: {e}")
+        return
+
+    # Process data
+    df = process_hspice_data(data_text)
+
+    # Save to CSV
+    try:
+        df.to_csv(args.output_file, index=False, float_format='%.3f')
+        print(f"Data successfully saved to {args.output_file}")
+    except Exception as e:
+        print(f"Error saving CSV file: {e}")
 
 
 if __name__ == "__main__":

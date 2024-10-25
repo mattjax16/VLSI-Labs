@@ -6,12 +6,15 @@ from scipy.stats import linregress
 import argparse
 
 
-def find_saturation_complex(voltage, current_ua, window_size=21, threshold=0.05):
+def find_saturation_complex(voltage_mv, current_ua, window_size=21, threshold=0.05):
     """
     Complex method uses smoothed derivatives to reduce noise sensitivity.
-    Current is expected in microamps.
+    Voltage is expected in millivolts, current in microamps.
     """
     try:
+        # Convert voltage to V for calculations
+        voltage = voltage_mv / 1000.0
+
         # First derivative
         gm = np.gradient(current_ua, voltage)
 
@@ -27,98 +30,58 @@ def find_saturation_complex(voltage, current_ua, window_size=21, threshold=0.05)
         zero_indices = np.where(normalized_gm2 < threshold)[0]
 
         if len(zero_indices) > 0:
-            return zero_indices[0], gm_smooth, gm2_smooth, normalized_gm2
+            return zero_indices[0]
         else:
-            return np.nan, gm_smooth, gm2_smooth, normalized_gm2
+            return np.nan
     except:
-        return np.nan, None, None, None
+        return np.nan
 
 
-def find_saturation_basic(voltage, current_ua, threshold=0.05):
+def find_saturation_basic(voltage_mv, current_ua, threshold=1e-2):
     """
     Basic method uses direct derivatives without smoothing.
-    Current is expected in microamps.
-
-    Args:
-        threshold: relative threshold (0.05 = 5% of max second derivative)
+    Voltage is expected in millivolts, current in microamps.
     """
     try:
+        # Convert voltage to V for calculations
+        voltage = voltage_mv / 1000.0
+
         # First derivative
         first_derivative = np.gradient(current_ua, voltage)
 
         # Second derivative
         second_derivative = np.gradient(first_derivative, voltage)
 
-        # Normalize second derivative like in complex method
-        normalized_second_derivative = np.abs(second_derivative) / np.max(np.abs(second_derivative))
-        zero_indices = np.where(normalized_second_derivative < threshold)[0]
+        # Find where second derivative is close to zero
+        zero_indices = np.where(np.abs(second_derivative) < threshold)[0]
 
         if len(zero_indices) > 0:
-            return zero_indices[0], first_derivative, normalized_second_derivative
+            return zero_indices[0]
         else:
-            return np.nan, first_derivative, normalized_second_derivative
+            return np.nan
     except:
-        return np.nan, None, None
+        return np.nan
 
 
-def plot_derivatives(voltage, current_ua, method_results, method='complex'):
-    """Plot derivatives to understand saturation detection"""
-    if method == 'complex':
-        sat_idx, gm_smooth, gm2_smooth, normalized_gm2 = method_results
+def calculate_lambda_from_saturation(voltage_v, current_ua, sat_idx):
+    """
+    Calculate lambda from the slope of the line in saturation region
+    using the relationship: slope = Id_sat * lambda
+    """
+    # Get saturation region data
+    voltage_sat = voltage_v[sat_idx:]
+    current_sat = current_ua[sat_idx:]
 
-        fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(10, 12))
+    # Calculate slope in saturation region
+    slope, intercept, r_value, p_value, std_err = linregress(voltage_sat, current_sat)
 
-        # Plot smoothed first derivative
-        ax1.plot(voltage, gm_smooth)
-        ax1.set_title('Smoothed First Derivative (Transconductance)')
-        ax1.set_xlabel('Voltage (V)')
-        ax1.set_ylabel('dI/dV (µA/V)')
-        ax1.grid(True)
+    # Calculate Id_sat at the beginning of saturation
+    Id_sat = current_sat[0]
 
-        # Plot smoothed second derivative
-        ax2.plot(voltage, gm2_smooth)
-        ax2.set_title('Smoothed Second Derivative')
-        ax2.set_xlabel('Voltage (V)')
-        ax2.set_ylabel('d²I/dV² (µA/V²)')
-        ax2.grid(True)
+    # Calculate lambda = slope / Id_sat
+    lambda_value = slope / Id_sat
 
-        # Plot normalized second derivative
-        ax3.plot(voltage, normalized_gm2)
-        ax3.axhline(y=0.05, color='r', linestyle='--', label='Threshold')
-        if not np.isnan(sat_idx):
-            ax3.axvline(x=voltage[sat_idx], color='g', linestyle='--', label='Saturation Point')
-        ax3.set_title('Normalized Second Derivative')
-        ax3.set_xlabel('Voltage (V)')
-        ax3.set_ylabel('Normalized d²I/dV²')
-        ax3.legend()
-        ax3.grid(True)
-
-    else:
-        sat_idx, first_derivative, second_derivative = method_results
-
-        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8))
-
-        # Plot first derivative
-        ax1.plot(voltage, first_derivative)
-        ax1.set_title('First Derivative (Transconductance)')
-        ax1.set_xlabel('Voltage (V)')
-        ax1.set_ylabel('dI/dV (µA/V)')
-        ax1.grid(True)
-
-        # Plot second derivative
-        ax2.plot(voltage, second_derivative)
-        ax2.axhline(y=0.01, color='r', linestyle='--', label='Threshold')
-        ax2.axhline(y=-0.01, color='r', linestyle='--')
-        if not np.isnan(sat_idx):
-            ax2.axvline(x=voltage[sat_idx], color='g', linestyle='--', label='Saturation Point')
-        ax2.set_title('Second Derivative')
-        ax2.set_xlabel('Voltage (V)')
-        ax2.set_ylabel('d²I/dV² (µA/V²)')
-        ax2.legend()
-        ax2.grid(True)
-
-    plt.tight_layout()
-    return fig
+    return lambda_value, slope, Id_sat, r_value ** 2
 
 
 def main():
@@ -131,47 +94,55 @@ def main():
     try:
         # Read CSV file
         data = pd.read_csv(args.input_file)
-        voltage = data['voltage'].values
-        # Convert current to microamps immediately
-        current_ua = data['current'].values * 1e6
+        voltage_mv = data['Voltage_mV'].values  # Already in mV
+        current_ua = data['Current_uA'].values  # Already in µA
+        voltage_v = voltage_mv / 1000.0  # Convert to V for calculations
 
         # Find saturation using selected method
         if args.method == 'complex':
-            sat_results = find_saturation_complex(voltage, current_ua)
-            sat_idx = sat_results[0]
+            sat_idx = find_saturation_complex(voltage_mv, current_ua)
         else:
-            sat_results = find_saturation_basic(voltage, current_ua)
-            sat_idx = sat_results[0]
+            sat_idx = find_saturation_basic(voltage_mv, current_ua)
 
-        # Plot derivatives for chosen method
-        plot_derivatives(voltage, current_ua, sat_results, method=args.method)
+        if np.isnan(sat_idx):
+            print("No saturation region found!")
+            return
+
+        # Calculate lambda and related parameters
+        lambda_value, slope, Id_sat, r_squared = calculate_lambda_from_saturation(
+            voltage_v, current_ua, sat_idx)
+
+        # Create figure
+        plt.figure(figsize=(10, 6))
 
         # Plot I-V curve
-        plt.figure(figsize=(10, 6))
-        plt.plot(voltage, current_ua, 'b-', label='I-V Curve')
-        if not np.isnan(sat_idx):
-            plt.axvline(x=voltage[sat_idx], color='r', linestyle='--',
-                        label=f'Saturation begins at {voltage[sat_idx]:.3f}V')
+        plt.plot(voltage_v, current_ua, 'b-', label='I-V Curve')
+
+        # Mark saturation point
+        plt.axvline(x=voltage_v[sat_idx], color='r', linestyle='--',
+                    label=f'Saturation begins at {voltage_v[sat_idx]:.3f}V')
+
+        # Plot fitted line in saturation region
+        voltage_sat = voltage_v[sat_idx:]
+        fitted_line = slope * voltage_sat + (Id_sat - slope * voltage_sat[0])
+        plt.plot(voltage_sat, fitted_line, 'g--',
+                 label=f'Fitted line (R² = {r_squared:.4f})')
+
         plt.grid(True)
         plt.xlabel('Voltage (V)')
         plt.ylabel('Current (µA)')
-        plt.title(f'I-V Characteristic Curve ({args.method} method)')
+        plt.title('I-V Characteristic Curve with Saturation Region Fit')
         plt.legend()
 
         # Print results
         print(f"\nAnalysis Results:")
-        if np.isnan(sat_idx):
-            print("No saturation region found!")
-        else:
-            print(f"Saturation begins at: {voltage[sat_idx]:.3f} V")
-            print(f"Current at saturation: {current_ua[sat_idx]:.2f} µA")
-
-            # Calculate linear fit parameters in saturation region
-            slope, intercept, r_value, _, _ = linregress(
-                voltage[sat_idx:], current_ua[sat_idx:])
-            print(f"Linear fit in saturation region:")
-            print(f"Slope (conductance): {slope:.2f} µA/V")
-            print(f"R-squared value: {r_value ** 2:.4f}")
+        print(f"Saturation begins at: {voltage_v[sat_idx]:.3f} V ({voltage_mv[sat_idx]:.1f} mV)")
+        print(f"Current at saturation (Id_sat): {Id_sat:.2f} µA")
+        print(f"\nSaturation Region Analysis:")
+        print(f"Slope in saturation: {slope:.4f} µA/V")
+        print(f"Lambda (λ = slope/Id_sat): {lambda_value:.6f} V⁻¹")
+        print(f"Early voltage (VA = 1/λ): {1 / lambda_value:.2f} V")
+        print(f"R-squared of fit: {r_squared:.4f}")
 
         plt.show()
 

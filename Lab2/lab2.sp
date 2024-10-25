@@ -31,10 +31,17 @@ M1 d g gnd b n105 W=300n L=100n
 * o Vgs: 1.05; Vds: [0,1.05] 
 * o Hint: You can use your curve to solve λ. 
 * o Use VLSI-transistor.pdf p.26 and p.28 as a reference
-* Voltage sources for PMOS
 * Vds: [0,1.05] (NMOS)
 .dc vds 0 1.05 0.01
 * WE will look at Ids and Vt (DC and Lv9) for q 1
+
+
+* Calculate velocity saturation (𝒄𝒐𝒙 ∗ 𝝂𝒔𝒂𝒕) (NMOS):
+* o Vgs: 1.05; Vds:1.05; vbs:0;
+* o Use VLSI-transistor.pdf p.31 as a reference
+.dc vds 1.05 1.05 1.05 vgs 1.05 vds 1.05
+
+
 
 
 *** PROBING and PRINTING DIFFERENT VALUES ***
@@ -44,29 +51,32 @@ M1 d g gnd b n105 W=300n L=100n
 .print DC i(M1)
 
 *probe Channel Length (L) lv1
-* .PROBE lv1(M1)
-* .print lv1(M1)
+.PROBE lv1(M1)
+.print lv1(M1)
 
 *probe Channel Width (W) lv2
-* .PROBE lv2(M1)
+.PROBE lv2(M1)
+.print lv2(M1)
 
 *probe Area of the Drain Diode (AD) lv3
-* .PROBE lv3(M1)
+.PROBE lv3(M1)
+.print lv3(M1)
 
 *probe Area of the Source Diode (AS) lv4
-* .PROBE lv4(M1)
+*  .PROBE lv4(M1)
 
 *probe voltage threshold (Vt) lv9
 .PROBE lv9(M1)  
 .print lv9(M1)
 
 *probe (Velocity) Saturation Voltage (VDSAT) lv10
-* .PROBE lv10(M1)v
+.PROBE lv10(M1)
+.print lv10(M1)
 
 *probe Drain Diode Periphery (PD) lv11
-* .PROBE lv11(M1)v
+* .PROBE lv12(M1)
 
 *probe Source Diode Periphery (PS) lv12
-* .PROBE lv11(M1)v
+* .PROBE lv12(M1)
 
 .end
