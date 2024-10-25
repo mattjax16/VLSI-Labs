@@ -49,7 +49,7 @@ M1 d g gnd b n105 W=300n L=100n
 * o Manually plot the set of 𝑉𝐷𝑆𝑎𝑡 dots on the Ids versus Vds plot for different Vgs, we 
 * did this plot in the lab 2 assignment, part 2. (use Measurement Tool -> Data(x,y) 
 * in WaveView)
-.dc vgs 0 1.05 0.001 
+.dc vds 0 1.05 0.001 sweep vgs 0 1.05 0.21 
 
 
 
