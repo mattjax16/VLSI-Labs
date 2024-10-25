@@ -30,7 +30,7 @@ vbs b gnd 0
 M1 d g gnd b n105 W=300n L=100n
 
  * p1 Vgs: 1.05; Vds: [0,1.05] (NMOS)
-.dc vgs 1.05 sweep vds 0 1.05 0.5
+.dc vgs 0 1.05 0.1 sweep vds 0 1.05 0.5
 
 * p2 Vgs: -1.1:0.2:0; Vds: [-1.1,0] (PMOS)
 * .dc vds -1.1 0 0.01 sweep vgs -1.1 0 0.2 
