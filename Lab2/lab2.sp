@@ -33,7 +33,7 @@ M1 d g gnd b n105 W=300n L=100n
 * o Use VLSI-transistor.pdf p.26 and p.28 as a reference
 * Voltage sources for PMOS
 * Vds: [0,1.05] (NMOS)
-.dc vds 0 1.05 0.001
+.dc vds 0 1.05 0.05
 * WE will look at Ids and Vt (DC and Lv9) for q 1
 
 
