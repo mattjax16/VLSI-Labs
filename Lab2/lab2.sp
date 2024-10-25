@@ -39,8 +39,17 @@ M1 d g gnd b n105 W=300n L=100n
 * Calculate velocity saturation (𝒄𝒐𝒙 ∗ 𝝂𝒔𝒂𝒕) (NMOS):
 * o Vgs: 1.05; Vds:1.05; vbs:0;
 * o Use VLSI-transistor.pdf p.31 as a reference
-.dc vds 1.05 1.05 1.05 vgs 1.05 1.05 1.05
+* .dc vds 1.05 1.05 1.05 vgs 1.05 1.05 1.05
 
+
+* 3. Print a set of Saturation Voltage (𝑽𝑫𝑺𝒂𝒕) (NMOS): 
+* o Vgs: 0:0.2:1.05; Vds:1.05; vbs:0; 
+* o  Probe and print Lv9 and Lv10 to help
+* o Show the results in ‘.lis’ file.  
+* o Manually plot the set of 𝑉𝐷𝑆𝑎𝑡 dots on the Ids versus Vds plot for different Vgs, we 
+* did this plot in the lab 2 assignment, part 2. (use Measurement Tool -> Data(x,y) 
+* in WaveView)
+.dc vgs 0 1.05 0.001 
 
 
 
@@ -59,8 +68,8 @@ M1 d g gnd b n105 W=300n L=100n
 .print lv2(M1)
 
 *probe Area of the Drain Diode (AD) lv3
-.PROBE lv3(M1)
-.print lv3(M1)
+* .PROBE lv3(M1)
+* .print lv3(M1)
 
 *probe Area of the Source Diode (AS) lv4
 *  .PROBE lv4(M1)
