@@ -70,16 +70,16 @@ M1 d g gnd b n105 W=300n L=100n
 *** PROBING and PRINTING DIFFERENT VALUES ***
 
 *probe transistor current (Ids) DC
-.PROBE DC i(M1) 
-.print DC i(M1)
+* .PROBE DC i(M1) 
+* .print DC i(M1)
 
 *probe Channel Length (L) lv1
-.PROBE lv1(M1)
-.print lv1(M1)
+* .PROBE lv1(M1)
+* .print lv1(M1)
 
 *probe Channel Width (W) lv2
-.PROBE lv2(M1)
-.print lv2(M1)
+* .PROBE lv2(M1)
+* .print lv2(M1)
 
 *probe Area of the Drain Diode (AD) lv3
 * .PROBE lv3(M1)
@@ -93,8 +93,8 @@ M1 d g gnd b n105 W=300n L=100n
 .print lv9(M1)
 
 *probe (Velocity) Saturation Voltage (VDSAT or VSAT) lv10
-.PROBE lv10(M1)
-.print lv10(M1)
+* .PROBE lv10(M1)
+* .print lv10(M1)
 
 *probe Drain Diode Periphery (PD) lv11
 * .PROBE lv12(M1)
