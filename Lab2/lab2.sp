@@ -55,6 +55,7 @@ M1 d g gnd b n105 W=300n L=100n
 * .dc vds 0 1.05 0.01 sweep vgs 0 1.05 0.21 
 
 
+
 * 4. Measure the Sub-threshold slope factor (NMOS): 
 * o Vgs: [0,1.05]; Vds: 1.05; Vbs: 0; 
 * o Use VLSI-transistor.pdf p.41 as a reference (S is ΔVgs for Id2/Id1 = 10)
