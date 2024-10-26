@@ -32,7 +32,7 @@ M1 d g gnd b n105 W=300n L=100n
 * o Hint: You can use your curve to solve λ. 
 * o Use VLSI-transistor.pdf p.26 and p.28 as a reference
 * Vds: [0,1.05] (NMOS)
-.dc vds 0 1.05 0.01
+* .dc vds 0 1.05 0.01
 * WE will look at Ids and Vt (DC and Lv9) for q 1
 
 
@@ -71,6 +71,7 @@ M1 d g gnd b n105 W=300n L=100n
 * 6. Calculate Beta (β) (NMOS) (Consider the Channel Length Modulation): 
 * o Vgs: 1.05; Vds: 1.05; Vbs: 0; 
 * o Use VLSI-transistor.pdf p.28 as a reference 
+.dc vds 1.05 1.05 1.05 vgs 1.05 1.05 1.05
 
 *** PROBING and PRINTING DIFFERENT VALUES ***
 
