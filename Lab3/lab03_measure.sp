@@ -47,17 +47,17 @@ M2 vo vi vdd vdd p105 W=300n L=l
 
 *define analysis voltage
 *vinput vi gnd pulse 0 vdd del trf trf pw per
-vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
+* vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
 
-* .tran 1p 6u When i use this form class code it doesnt reach outrise measurment
-.tran 1p 10u
-.measure tran outrise 
-+trig v(vo) val='vdd*0.1' rise=trf
-+targ v(vo) val='vdd*0.9' rise=trf
+* * .tran 1p 6u When i use this form class code it doesnt reach outrise measurment
+* .tran 1p 10u
+* .measure tran outrise 
+* +trig v(vo) val='vdd*0.1' rise=trf
+* +targ v(vo) val='vdd*0.9' rise=trf
 
-.measure tran outfall 
-+trig v(vo) val='vdd*0.9' fall=trf
-+targ v(vo) val='vdd*0.1' fall=trf
+* .measure tran outfall 
+* +trig v(vo) val='vdd*0.9' fall=trf
+* +targ v(vo) val='vdd*0.1' fall=trf
 
 ** QUESTION 2 **
 * 2. Definitions of waveforms: (Example code is attached at the end of the assignment)
@@ -69,17 +69,18 @@ vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
 * the measurement result in the .lis file and attach it in the report.
 
 *define analysis voltage
-* vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
+* vinput vi gnd pulse 0 vdd del trf trf pw per
+vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
 
-* *.tran 1p 6u
-* .tran 1p 10u
-*.measure tran tphl 
-*+trig v(vi) val='vdd*0.5' rise=trf
-*+targ v(vo) val='vdd*0.5' fall=trf
+* * .tran 1p 6u When i use this form class code it doesnt reach outrise measurment
+.tran 1p 10u
+* .measure tran tphl 
+* +trig v(vi) val='vdd*0.5' rise=trf
+* +targ v(vo) val='vdd*0.5' fall=trf
 
-*.measure tran tplh 
-*+trig v(vi) val='vdd*0.5' fall=trf
-*+targ v(vo) val='vdd*0.5' rise=trf
+.measure tran tplh 
++trig v(vi) val='vdd*0.5' fall=trf
++targ v(vo) val='vdd*0.5' rise=trf
 
 ** Question 3 **
 * 3. Analyze the DC characteristic of the CMOS inverter (one graph):
@@ -90,11 +91,29 @@ vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
 *    Width of PMOS from 100n to 1000n with a step of 100n.
 * d. View the VOUT (y axis) plot.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 *************************************************************************************
 *define analysis voltage
 *vinput vi gnd pulse 0 vdd del trf trf pw per
 * vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
-*.tran 1p 6u
+* * .tran 1p 6u When i use this form class code it doesnt reach outrise measurment
 * .tran 1p 10u
 * .measure tran outrise 
 * +trig v(vo) val='vdd*0.1' rise=2

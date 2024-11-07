@@ -9,8 +9,8 @@
   Command line options: /usr/cots/synopsys/HSPICE-K-2015.06-3/hspice/linux64/hspice -i lab03_measure.sp -o lab03_measure.lis
  lic:  
  lic: FLEXlm: v11.2.1 
- lic: USER:   mbass01              HOSTNAME: vm-hw07 
- lic: HOSTID: 005056000007         PID:      1187816 
+ lic: USER:   mbass01              HOSTNAME: vm-hw00 
+ lic: HOSTID: 005056000000         PID:      1439029 
  lic: Using FLEXlm license file: 
  lic: 27000@vm-license1 
  lic: Checkout 1 hspice 
@@ -1136,9 +1136,7 @@
  inverter
 
  ****** transient analysis tnom=  25.000 temp=  25.000 ******
-  **warning** (lab03_measure.sp:81) .MEASURE  tplh never reached the trigger value, Measurement failed! 
-  **warning** (lab03_measure.sp:81) .MEASURE  tplh never reached the target value, Measurement failed! 
-   tplh= failed                          trig= not found
+ tphl= -44.3843n  targ=   5.2056u   trig=   5.2500u
 
           ***** job concluded
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
@@ -1151,7 +1149,7 @@
  ******  Machine Information  ******
  CPU:
  model name	: Intel(R) Xeon(R) Silver 4214Y CPU @ 2.20GHz
- cpu MHz	: 2194.844
+ cpu MHz	: 2194.843
   
  OS:
  Linux version 4.18.0-553.16.1.el8_10.x86_64 (mockbuild@x86-64-01.build.eng.rdu2.redhat.com) (gcc version 8.5.0 20210514 (Red Hat 8.5.0-22) (GCC)) #1 SMP Thu Aug 1 04:16:12 EDT 2024
@@ -1183,18 +1181,18 @@
 
   analysis           time    # points   tot. iter  conv.iter
   op point           0.00           1           5
-  transient          0.10    10000001         151          61 rev=         3
-  readin             1.11
+  transient          0.11    10000001         151          61 rev=         3
+  readin             1.10
   errchk             0.00
-  setup              0.01
+  setup              0.00
   output             0.00
 
 
            peak memory used        275.39 megabytes
-           total cpu time            1.22 seconds
+           total cpu time            1.21 seconds
            total elapsed time        0.76 seconds
-           job started at     21:58:34 11/06/2024
-           job ended   at     21:58:35 11/06/2024
+           job started at     21:57:13 11/06/2024
+           job ended   at     21:57:14 11/06/2024
 
 
  lic: Release hspice token(s) 
