@@ -12,18 +12,11 @@ Inverter
 .model n105 nmos level=54
 .model p105 pmos level=54
 
-*define parameters
-.param vdd = 5
-*.param vdd = 1.05
-.param l = 100n
-.param trf = 6p *initial rise/fall time of the transient source
-.param del = 1u 
-.param pw = 1u
-.param per = 2u
 
 *source declaration
 vvdd vdd 0 vdd   *syntax:vname pos_node neg_node voltage_value
 vgnd gnd 0 0v
+
 
 
 *transitors deceration
@@ -31,6 +24,17 @@ vgnd gnd 0 0v
 M1 vo vi gnd gnd n105 W=300n L=l 
 *PMOS
 M2 vo vi vdd vdd p105 W=300n L=l
+
+
+*define parameters
+.param vdd = 5
+*.param vdd = 1.05
+.param l = 100n
+*initial rise/fall time of the transient source
+.param trf = 6p 
+.param del = 1u 
+.param pw = 1u
+.param per = 2u
 
 
 ** QUESTION 1 **
@@ -42,10 +46,11 @@ M2 vo vi vdd vdd p105 W=300n L=l
 * Use ‘6p’ for all the rise time and fall time of the input pulse.
 
 *define analysis voltage
+*vinput vi gnd pulse 0 vdd del trf trf pw per
 vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
 
-*.tran 1p 6u
-.tran 1p 40u
+* .tran 1p 6u When i use this form class code it doesnt reach outrise measurment
+.tran 1p 10u
 .measure tran outrise 
 +trig v(vo) val='vdd*0.1' rise=trf
 +targ v(vo) val='vdd*0.9' rise=trf
@@ -64,17 +69,17 @@ vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
 * the measurement result in the .lis file and attach it in the report.
 
 *define analysis voltage
-vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
+* vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
 
-*.tran 1p 6u
-.tran 1p 40u
-.measure tran outrise 
-+trig v(vo) val='vdd*0.5' rise=trf
-+targ v(vo) val='vdd*0.5' rise=trf
+* *.tran 1p 6u
+* .tran 1p 10u
+*.measure tran tphl 
+*+trig v(vi) val='vdd*0.5' rise=trf
+*+targ v(vo) val='vdd*0.5' fall=trf
 
-.measure tran outfall 
-+trig v(vo) val='vdd*0.5' fall=trf
-+targ v(vo) val='vdd*0.5' fall=trf
+*.measure tran tplh 
+*+trig v(vi) val='vdd*0.5' fall=trf
+*+targ v(vo) val='vdd*0.5' rise=trf
 
 ** Question 3 **
 * 3. Analyze the DC characteristic of the CMOS inverter (one graph):
@@ -90,22 +95,22 @@ vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
 *vinput vi gnd pulse 0 vdd del trf trf pw per
 * vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
 *.tran 1p 6u
-.tran 1p 40u
-.measure tran outrise 
-+trig v(vo) val='vdd*0.1' rise=2
-+targ v(vo) val='vdd*0.9' rise=2
+* .tran 1p 10u
+* .measure tran outrise 
+* +trig v(vo) val='vdd*0.1' rise=2
+* +targ v(vo) val='vdd*0.9' rise=2
 
-.measure tran outfall 
-+trig v(vo) val='vdd*0.9' fall=2
-+targ v(vo) val='vdd*0.1' fall=2
+* .measure tran outfall 
+* +trig v(vo) val='vdd*0.9' fall=2
+* +targ v(vo) val='vdd*0.1' fall=2
 
-.measure tran tphl 
-+trig v(vi) val='vdd*0.5' rise=2
-+targ v(vo) val='vdd*0.5' fall=2
+* .measure tran tphl 
+* +trig v(vi) val='vdd*0.5' rise=2
+* +targ v(vo) val='vdd*0.5' fall=2
 
-.measure tran tplh 
-+trig v(vi) val='vdd*0.5' fall=2
-+targ v(vo) val='vdd*0.5' rise=2
+* .measure tran tplh 
+* +trig v(vi) val='vdd*0.5' fall=2
+* +targ v(vo) val='vdd*0.5' rise=2
 
 .end
 
