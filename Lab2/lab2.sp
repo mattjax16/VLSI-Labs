@@ -1,7 +1,7 @@
 lab2 NMOS
 * when we are the PMOS BODY should not be conneceted to gnd but to vdd
 
-*Iibrary file
+*library file
 .lib '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/tech/hspice/saed32nm.lib' TT
 .include '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/lib/stdcell_rvt/hspice/saed32nm_rvt.spf'
 

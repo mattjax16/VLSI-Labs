@@ -1,7 +1,7 @@
 Inverter
 
 *library file
-.lib '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/tech/hspice/saed32nm.lib' TT
+.lib '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/tech/hspice/saed32nm.lib' 
 .include '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/lib/stdcell_rvt/hspice/saed32nm_rvt.spf'
 
 *post the results
@@ -12,29 +12,26 @@ Inverter
 .model n105 nmos level=54
 .model p105 pmos level=54
 
-
 *source declaration
 vvdd vdd 0 vdd   *syntax:vname pos_node neg_node voltage_value
 vgnd gnd 0 0v
-
-
-
-*transitors deceration
-*NMOS
-M1 vo vi gnd gnd n105 W=300n L=l 
-*PMOS
-M2 vo vi vdd vdd p105 W=300n L=l
-
 
 *define parameters
 .param vdd = 5
 *.param vdd = 1.05
 .param l = 100n
-*initial rise/fall time of the transient source
-.param trf = 6p 
+.param trf = 6p *initial rise/fall time of the transient source
 .param del = 1u 
 .param pw = 1u
 .param per = 2u
+.param w_p = 300n
+.param w_n = 300n
+
+M1 vo vi gnd gnd n105 W=w_n L=l
+M2 vo vi vdd vdd p105 W=w_p L=l
+
+
+
 
 
 **########### Question 1 ###########**
@@ -46,18 +43,18 @@ M2 vo vi vdd vdd p105 W=300n L=l
 * Use ‘6p’ for all the rise time and fall time of the input pulse.
 
 *define analysis voltage
-*vinput vi gnd pulse 0 vdd del trf trf pw per
-* vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
+* vinput vi gnd pulse 0 vdd del trf trf pw per
+vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
 
 * * .tran 1p 6u When i use this form class code it doesnt reach outrise measurment
-* .tran 1p 10u
-* .measure tran outrise 
-* +trig v(vo) val='vdd*0.1' rise=trf
-* +targ v(vo) val='vdd*0.9' rise=trf
+.tran 1p 40u
+.measure tran outrise 
++trig v(vo) val='vdd*0.1' rise=trf
++targ v(vo) val='vdd*0.9' rise=trf
 
-* .measure tran outfall 
-* +trig v(vo) val='vdd*0.9' fall=trf
-* +targ v(vo) val='vdd*0.1' fall=trf
+.measure tran outfall 
++trig v(vo) val='vdd*0.9' fall=trf
++targ v(vo) val='vdd*0.1' fall=trf
 
 
 **########### Question 2 ###########**
@@ -110,12 +107,12 @@ M2 vo vi vdd vdd p105 W=300n L=l
 
 *define analysis voltage
 * vinput vi gnd pulse 0 vdd del trf trf pw per
-vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
+* vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
 
-* Sweep and probe and print vout
-.dc vinput 0 1.05 0.01 sweep p_w 100n 1000n 100n
-.PROBE vout
-.print vout
+* * Sweep and probe and print vout
+* .dc vinput 0 1.05 0.01 sweep p_w 100n 1000n 100n
+* .PROBE vout
+* .print vout
 
 
 
