@@ -37,7 +37,7 @@ M2 vo vi vdd vdd p105 W=300n L=l
 .param per = 2u
 
 
-** QUESTION 1 **
+**########### Question 1 ###########**
 * Construct a CMOS inverter. The first part includes the Vin and some basic
 * parameters are given in the HSPICE code at the end of this file. For both nmos and
 * pmos, w=300n, L=100n.
@@ -59,7 +59,8 @@ M2 vo vi vdd vdd p105 W=300n L=l
 * +trig v(vo) val='vdd*0.9' fall=trf
 * +targ v(vo) val='vdd*0.1' fall=trf
 
-** QUESTION 2 **
+
+**########### Question 2 ###########**
 * 2. Definitions of waveforms: (Example code is attached at the end of the assignment)
 * 𝒕𝒑𝑯𝑳： 𝑑𝑒𝑙𝑎𝑦 𝑓𝑟𝑜𝑚 𝑖𝑛𝑝𝑢𝑡 50% 𝑡𝑜 𝑜𝑢𝑡𝑢𝑝𝑡 50% 𝑤ℎ𝑒𝑛 𝑜𝑢𝑡𝑝𝑢𝑡 𝑖𝑠 𝒇𝒂𝒍𝒍𝒊𝒏𝒈.
 * 𝒕𝒑𝑳𝑯： 𝑑𝑒𝑙𝑎𝑦 𝑓𝑟𝑜𝑚 𝑖𝑛𝑝𝑢𝑡 50% 𝑡𝑜 𝑜𝑢𝑡𝑢𝑝𝑡 50% 𝑤ℎ𝑒𝑛 𝑜𝑢𝑡𝑝𝑢𝑡 𝑖𝑠 𝒓𝒊𝒔𝒊𝒏𝒈
@@ -82,7 +83,8 @@ M2 vo vi vdd vdd p105 W=300n L=l
 * +trig v(vi) val='vdd*0.5' fall=trf
 * +targ v(vo) val='vdd*0.5' rise=trf
 
-** Question 3 **
+
+**########### Question 3 ###########**
 * 3. Analyze the DC characteristic of the CMOS inverter (one graph):
 * a. Set the Length of the NMOS and PMOS as a constant: 100n; 
 *    Width of the NMOS as a constant: 300n.
@@ -90,6 +92,21 @@ M2 vo vi vdd vdd p105 W=300n L=l
 * c. Change the Beta ratio of the NMOS and PMOS by sweeping the 
 *    Width of PMOS from 100n to 1000n with a step of 100n.
 * d. View the VOUT (y axis) plot.
+
+* *define analysis voltage
+* * vinput vi gnd pulse 0 vdd del trf trf pw per
+* vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
+
+* * Sweep and probe and print vout
+* .dc vinput 0 1.05 0.01 sweep p_w 100n 1000n 100n
+* .PROBE vout
+* .print vout
+
+
+**########### Question 4 ###########**
+* Use the measurement tool (shown below) and the graph in problem 3 to find the 
+* closest Width value of the PMOS that has the Switching Threshold closest to half 
+* of the Vdd (Vdd/2). We will use this balanced inverter for the following tasks. 
 
 *define analysis voltage
 * vinput vi gnd pulse 0 vdd del trf trf pw per
@@ -99,11 +116,6 @@ vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
 .dc vinput 0 1.05 0.01 sweep p_w 100n 1000n 100n
 .PROBE vout
 .print vout
-
-
-
-
-
 
 
 
