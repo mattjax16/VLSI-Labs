@@ -32,11 +32,11 @@ M1 d g gnd b n105 W=300n L=100n
 * o Hint: You can use your curve to solve λ. 
 * o Use VLSI-transistor.pdf p.26 and p.28 as a reference
 * Vds: [0,1.05] (NMOS)
-* .dc vds 0 1.05 0.01
+.dc vds 0 1.05 0.01
 * WE will look at Ids and Vt (DC and Lv9) for q 1
 
 
-* Calculate velocity saturation (𝒄𝒐𝒙 ∗ 𝝂𝒔𝒂𝒕) (NMOS):
+* 2. Calculate velocity saturation (𝒄𝒐𝒙 ∗ 𝝂𝒔𝒂𝒕) (NMOS):
 * o Vgs: 1.05; Vds:1.05; vbs:0;
 * o Use VLSI-transistor.pdf p.31 as a reference
 * .dc vds 1.05 1.05 1.05 vgs 1.05 1.05 1.05
@@ -71,21 +71,21 @@ M1 d g gnd b n105 W=300n L=100n
 * 6. Calculate Beta (β) (NMOS) (Consider the Channel Length Modulation): 
 * o Vgs: 1.05; Vds: 1.05; Vbs: 0; 
 * o Use VLSI-transistor.pdf p.28 as a reference 
-.dc vds 1.05 1.05 1.05 vgs 1.05 1.05 1.05
+* .dc vds 1.05 1.05 1.05 vgs 1.05 1.05 1.05
 
 *** PROBING and PRINTING DIFFERENT VALUES ***
 
 *probe transistor current (Ids) DC
-.PROBE DC i(M1) 
-.print DC i(M1)
+* .PROBE DC i(M1) 
+* .print DC i(M1)
 
 *probe Channel Length (L) lv1
-.PROBE lv1(M1)
-.print lv1(M1)
+* .PROBE lv1(M1)
+* .print lv1(M1)
 
 *probe Channel Width (W) lv2
-.PROBE lv2(M1)
-.print lv2(M1)
+* .PROBE lv2(M1)
+* .print lv2(M1)
 
 *probe Area of the Drain Diode (AD) lv3
 * .PROBE lv3(M1)
@@ -95,12 +95,12 @@ M1 d g gnd b n105 W=300n L=100n
 *  .PROBE lv4(M1)
 
 *probe voltage threshold (Vt) lv9
-.PROBE lv9(M1)  
-.print lv9(M1)
+* .PROBE lv9(M1)  
+* .print lv9(M1)
 
 *probe (Velocity) Saturation Voltage (VDSAT or VSAT) lv10
-.PROBE lv10(M1)
-.print lv10(M1)
+* .PROBE lv10(M1)
+* .print lv10(M1)
 
 *probe Drain Diode Periphery (PD) lv11
 * .PROBE lv12(M1)
