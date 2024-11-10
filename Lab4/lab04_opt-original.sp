@@ -37,6 +37,9 @@ vinput vi gnd pulse 0 vdd del trf trf pw per
 .param wp = OPTrange(200n, 200n, 1000n)
 
 
+**** NOTES
+**** Chose initial time carefully
+
 .measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2
 .measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
 .measure tran tpd param='tphl-tplh' goal=0
