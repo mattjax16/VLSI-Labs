@@ -65,7 +65,7 @@ M1 d g gnd b n105 W=300n L=100n
 * 5. Measure the Body effect (𝒌𝜸) (NMOS): 
 * o Vgs:1.05; Vds:1.05; Vsb: [-1.05,1.05]; 
 * o Use VLSI-transistor.pdf p.13 and p.40 as a reference 
-* .dc sweep vbs -1.05 1.05 0.01
+.dc sweep vbs -1.05 1.05 0.01
 
 
 * 6. Calculate Beta (β) (NMOS) (Consider the Channel Length Modulation): 
