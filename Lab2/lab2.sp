@@ -59,7 +59,7 @@ M1 d g gnd b n105 W=300n L=100n
 * 4. Measure the Sub-threshold slope factor (NMOS): 
 * o Vgs: [0,1.05]; Vds: 1.05; Vbs: 0; 
 * o Use VLSI-transistor.pdf p.41 as a reference (S is ΔVgs for Id2/Id1 = 10)
-.dc vgs 0 1.05 0.01
+* .dc vgs 0 1.05 0.01
 
 
 * 5. Measure the Body effect (𝒌𝜸) (NMOS): 
@@ -77,7 +77,7 @@ M1 d g gnd b n105 W=300n L=100n
 
 *probe transistor current (Ids) DC
 * .PROBE DC i(M1) 
-.print DC i(M1)
+* .print DC i(M1)
 
 *probe Channel Length (L) lv1
 * .PROBE lv1(M1)
@@ -95,8 +95,8 @@ M1 d g gnd b n105 W=300n L=100n
 *  .PROBE lv4(M1)
 
 *probe voltage threshold (Vt) lv9
-* .PROBE lv9(M1)  
-* .print lv9(M1)
+.PROBE lv9(M1)  
+.print lv9(M1)
 
 *probe Saturation Voltage (VDSAT or VSAT) lv10
 * .PROBE lv10(M1)
