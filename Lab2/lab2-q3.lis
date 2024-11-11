@@ -6,11 +6,11 @@
   Synopsys, Inc. All other use, reproduction, or distribution of
   this software is strictly prohibited.
   Input File: lab2.sp                                                           
-  Command line options: /usr/cots/synopsys/HSPICE-K-2015.06-3/hspice/linux64/hspice -i lab2.sp -o lab2.lis
+  Command line options: /usr/cots/synopsys/HSPICE-K-2015.06-3/hspice/linux64/hspice -i lab2.sp -o lab2-q3.lis
  lic:  
  lic: FLEXlm: v11.2.1 
  lic: USER:   mbass01              HOSTNAME: vm-hw04 
- lic: HOSTID: 005056000004         PID:      3897800 
+ lic: HOSTID: 005056000004         PID:      3897672 
  lic: Using FLEXlm license file: 
  lic: 27000@vm-license1 
  lic: Checkout 1 hspice 
@@ -653,17 +653,17 @@ y
   analysis           time    # points   tot. iter  conv.iter
   op point           0.00           1           0
   dc sweep           0.00           6          15
-  readin             1.09
+  readin             1.10
   errchk             0.00
   setup              0.00
   output             0.00
 
 
            peak memory used        275.39 megabytes
-           total cpu time            1.09 seconds
+           total cpu time            1.10 seconds
            total elapsed time        0.64 seconds
-           job started at     14:14:59 11/11/2024
-           job ended   at     14:14:59 11/11/2024
+           job started at     14:13:29 11/11/2024
+           job ended   at     14:13:30 11/11/2024
 
 
  lic: Release hspice token(s) 
