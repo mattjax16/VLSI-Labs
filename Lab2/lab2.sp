@@ -52,7 +52,7 @@ M1 d g gnd b n105 W=300n L=100n
 * .dc vgs 0 1.05 0.2
 * Calc
 * Graph
-.dc vds 0 1.05 0.01 sweep vgs 0 1.05 0.21 
+.dc vds 0 1.05 0.01 sweep vgs 0 1.05 0.2 
 
 
 
