@@ -96,11 +96,11 @@ M1 d g gnd b n105 W=300n L=100n
 
 *probe voltage threshold (Vt) lv9
 * .PROBE lv9(M1)  
-.print lv9(M1)
+* .print lv9(M1)
 
 *probe Saturation Voltage (VDSAT or VSAT) lv10
 * .PROBE lv10(M1)
-.print lv10(M1)
+* .print lv10(M1)
 
 *probe Drain Diode Periphery (PD) lv11
 * .PROBE lv12(M1)
