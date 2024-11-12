@@ -65,19 +65,19 @@ M1 d g gnd b n105 W=300n L=100n
 * 5. Measure the Body effect (𝒌𝜸) (NMOS): 
 * o Vgs:1.05; Vds:1.05; Vsb: [-1.05,1.05]; 
 * o Use VLSI-transistor.pdf p.13 and p.40 as a reference 
-.dc sweep vbs -1.05 1.05 0.01
+* .dc sweep vbs -1.05 1.05 0.01
 
 
 * 6. Calculate Beta (β) (NMOS) (Consider the Channel Length Modulation): 
 * o Vgs: 1.05; Vds: 1.05; Vbs: 0; 
 * o Use VLSI-transistor.pdf p.28 as a reference 
-* .dc vds 1.05 1.05 1.05 vgs 1.05 1.05 1.05
+.dc vds 1.05 1.05 1.05 vgs 1.05 1.05 1.05
 
 *** PROBING and PRINTING DIFFERENT VALUES ***
 
 *probe transistor current (Ids) DC
-* .PROBE DC i(M1) 
-* .print DC i(M1)
+.PROBE DC i(M1) 
+.print DC i(M1)
 
 *probe Channel Length (L) lv1
 * .PROBE lv1(M1)
@@ -93,6 +93,7 @@ M1 d g gnd b n105 W=300n L=100n
 
 *probe Area of the Source Diode (AS) lv4
 *  .PROBE lv4(M1)
+*  .print lv4(M1)
 
 *probe voltage threshold (Vt) lv9
 .PROBE lv9(M1)  
