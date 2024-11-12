@@ -102,8 +102,8 @@ M1 d g gnd b p105 W=300n L=100n
 *** PROBING and PRINTING DIFFERENT VALUES ***
 
 * Measuring transistor current (Ids) DC
-.PROBE DC i(M1) 
-.print DC i(M1)
+* .PROBE DC i(M1) 
+* .print DC i(M1)
 
 * Measuring Channel Length (L) lv1
 .PROBE lv1(M1)
@@ -126,8 +126,8 @@ M1 d g gnd b p105 W=300n L=100n
 .print lv9(M1)
 
 * Measuring Saturation Voltage (VDSAT or VSAT) lv10
-.PROBE lv10(M1)
-.print lv10(M1)
+* .PROBE lv10(M1)
+* .print lv10(M1)
 
 * Measuring Drain Diode Periphery (PD) lv11
 * .PROBE lv11(M1)
@@ -139,6 +139,6 @@ M1 d g gnd b p105 W=300n L=100n
 
 * Measuring effective mobility (μeff)
 .PROBE MOBEFF(M1)
-. print MOBEFF(M1) 
+.print MOBEFF(M1) 
 
 .end

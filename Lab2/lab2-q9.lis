@@ -10,7 +10,7 @@
  lic:  
  lic: FLEXlm: v11.2.1 
  lic: USER:   mbass01              HOSTNAME: vm-hw04 
- lic: HOSTID: 005056000004         PID:      3997863 
+ lic: HOSTID: 005056000004         PID:      3999988 
  lic: Using FLEXlm license file: 
  lic: 27000@vm-license1 
  lic: Checkout 1 hspice 
@@ -580,12 +580,6 @@
  ****** dc transfer curves tnom=  25.000 temp=  25.000 ******
  x
 
- volt         current   
-             m1         
-    1.05000    -1.0500p 
-y
- x
-
  volt         lv1       
              m1         
     1.05000   100.0000n 
@@ -601,12 +595,6 @@ y
  volt         lv9       
              m1         
     1.05000   376.8125m 
-y
- x
-
- volt         lv10      
-             m1         
-    1.05000    46.3586m 
 y
  x
 
@@ -664,9 +652,9 @@ y
 
            peak memory used        275.39 megabytes
            total cpu time            1.09 seconds
-           total elapsed time        0.64 seconds
-           job started at     15:37:15 11/12/2024
-           job ended   at     15:37:16 11/12/2024
+           total elapsed time        0.65 seconds
+           job started at     16:02:27 11/12/2024
+           job ended   at     16:02:28 11/12/2024
 
 
  lic: Release hspice token(s) 
