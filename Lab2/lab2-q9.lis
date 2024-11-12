@@ -10,7 +10,7 @@
  lic:  
  lic: FLEXlm: v11.2.1 
  lic: USER:   mbass01              HOSTNAME: vm-hw04 
- lic: HOSTID: 005056000004         PID:      3999988 
+ lic: HOSTID: 005056000004         PID:      4009284 
  lic: Using FLEXlm license file: 
  lic: 27000@vm-license1 
  lic: Checkout 1 hspice 
@@ -24,8 +24,8 @@
 
  ****** mos   model parameters tnom=  25.000 temp=  25.000 ******
  Model file: lab2.sp
- Model line:           33
- Model Name: p105  
+ Model line:           28
+ Model Name: n105  
  BSIM4 Model (Level 54)
     MOBMOD = 0
     BINUNIT = 1
@@ -95,15 +95,15 @@
     DVT2W = -0.032 
     DROUT =   0.56 
     DSUB =   0.56 
-    VTH0 =   -0.7 
-    EU =      1 
+    VTH0 =    0.7 
+    EU =   1.67 
     UA =  1e-09 
     UA1 =  1e-09 
     UB =  1e-19 
     UB1 = -1e-18 
     UC = -4.65e-11 
     UC1 = -5.6e-11 
-    U0 =  0.025 
+    U0 =  0.067 
     UTE =   -1.5 
     VOFF =  -0.08 
     VOFFL =      0 
@@ -147,12 +147,12 @@
     CGIDL =    0.5 
     PHIN =      0 
     EGIDL =    0.8 
-    AIGC = 0.0098 
-    BIGC = 0.000759 
-    CIGC =   0.03 
-    AIGSD = 0.0098 
-    BIGSD = 0.000759 
-    CIGSD =   0.03 
+    AIGC = 0.0136 
+    BIGC = 0.00171 
+    CIGC =  0.075 
+    AIGSD = 0.0136 
+    BIGSD = 0.00171 
+    CIGSD =  0.075 
     AIGBACC = 0.0136 
     BIGBACC = 0.00171 
     CIGBACC =  0.075 
@@ -281,8 +281,8 @@
     WWLC =      0 
     WMIN =      0 
     WMAX =      1 
-    NOIA = 6.188e+40 
-    NOIB = 1.5e+25 
+    NOIA = 6.25e+41 
+    NOIB = 3.125e+26 
     NOIC = 8.75e+09 
     EM = 4.1e+07 
     EF =      1 
@@ -437,12 +437,12 @@
     BGISL     = 2.3e+09 
     CGISL     =    0.5 
     EGISL     =    0.8 
-    AIGS      = 0.0098 
-    BIGS      = 0.000759 
-    CIGS      =   0.03 
-    AIGD      = 0.0098 
-    BIGD      = 0.000759 
-    CIGD      =   0.03 
+    AIGS      = 0.0136 
+    BIGS      = 0.00171 
+    CIGS      =  0.075 
+    AIGD      = 0.0136 
+    BIGD      = 0.00171 
+    CIGD      =  0.075 
     NJTSD     =     20 
     NJTSSWD   =     20 
     NJTSSWGD  =     20 
@@ -503,7 +503,7 @@
     TEMPEOT     =  300.1 
     LEFFEOT     =      1 
     WEFFEOT     =     10 
-    UCS         =      1 
+    UCS         =   1.67 
     UCSTE       = -0.004775 
     LUCS        =      0 
     LUCSTE      =      0 
@@ -578,6 +578,8 @@
  lab2 nmos
 
  ****** dc transfer curves tnom=  25.000 temp=  25.000 ******
+  *** parameter 0:vgs  =     1.0500        ***
+  
  x
 
  volt         lv1       
@@ -600,7 +602,7 @@ y
 
  volt         mobeff    
              m1         
-    1.05000    19.8804m 
+    1.05000    44.7197m 
 y
 
           ***** job concluded
@@ -644,17 +646,17 @@ y
   analysis           time    # points   tot. iter  conv.iter
   op point           0.00           1           0
   dc sweep           0.00           1           3
-  readin             1.08
-  errchk             0.01
+  readin             1.10
+  errchk             0.00
   setup              0.00
   output             0.00
 
 
            peak memory used        275.39 megabytes
-           total cpu time            1.09 seconds
+           total cpu time            1.10 seconds
            total elapsed time        0.65 seconds
-           job started at     16:02:27 11/12/2024
-           job ended   at     16:02:28 11/12/2024
+           job started at     17:32:03 11/12/2024
+           job ended   at     17:32:04 11/12/2024
 
 
  lic: Release hspice token(s) 
