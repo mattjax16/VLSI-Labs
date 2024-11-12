@@ -13,16 +13,25 @@ lab2 NMOS
 .param temp=25
 
 
-*** NMOS Transistor ***
-vgs g gnd 1.05
-vds d gnd 1.05
+*** Transistors ***
+* NMOS
+* vgs g gnd 1.05
+* vds d gnd 1.05
+* vbs b gnd 0
+
+* PMOS
+vgs g gnd -1.05
+vds d gnd -1.05
 vbs b gnd 0
 
 * NMOS Transistor
-.model n105 nmos level=54
-M1 d g gnd b n105 W=300n L=100n
+* .model n105 nmos level=54
+* M1 d g gnd b n105 W=300n L=100n
+*syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
-
+* PMOS Transistor
+.model p105 pmos level=54
+M1 d g gnd b p105 W=300n L=100n
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
 
 
@@ -71,42 +80,65 @@ M1 d g gnd b n105 W=300n L=100n
 * 6. Calculate Beta (β) (NMOS) (Consider the Channel Length Modulation): 
 * o Vgs: 1.05; Vds: 1.05; Vbs: 0; 
 * o Use VLSI-transistor.pdf p.28 as a reference 
-.dc vds 1.05 1.05 1.05 vgs 1.05 1.05 1.05
+* .dc vds 1.05 1.05 1.05 vgs 1.05 1.05 1.05
+
+
+* 7. Calculate the NMOS and PMOS mobility ratio (μ𝒏/μ𝒑):
+* o Vgs: 1.05; Vds: 1.05; Vbs: 0 for NMOS;
+* o Vgs: -1.05; Vds: -1.05; Vbs: 0 for PMOS
+* We already calculated C_ox_n so we can just now calculate C_ox_p
+* Dont forget to change the model to PMOS and the Vgs and Vds values to -1.05
+* PMOS
+* .dc vds -1.05 -1.05 -1.05 vgs -1.05 -1.05 -1.05
+
+* 8. Just use Q2 to Calc
+
+* 9. Calculate IDSAT (NMOS):
+* o Vgs: 1.05; Vds: 1.05; Vbs: 0 for NMOS;
+.dc vgs 1.05 1.05 1.05
+
+
 
 *** PROBING and PRINTING DIFFERENT VALUES ***
 
-*probe transistor current (Ids) DC
+* Measuring transistor current (Ids) DC
 .PROBE DC i(M1) 
 .print DC i(M1)
 
-*probe Channel Length (L) lv1
-* .PROBE lv1(M1)
-* .print lv1(M1)
+* Measuring Channel Length (L) lv1
+.PROBE lv1(M1)
+.print lv1(M1)
 
-*probe Channel Width (W) lv2
-* .PROBE lv2(M1)
-* .print lv2(M1)
+* Measuring Channel Width (W) lv2
+.PROBE lv2(M1)
+.print lv2(M1)
 
-*probe Area of the Drain Diode (AD) lv3
+* Measuring Area of the Drain Diode (AD) lv3
 * .PROBE lv3(M1)
 * .print lv3(M1)
 
-*probe Area of the Source Diode (AS) lv4
-*  .PROBE lv4(M1)
-*  .print lv4(M1)
+* Measuring Area of the Source Diode (AS) lv4
+* .PROBE lv4(M1)
+* .print lv4(M1)
 
-*probe voltage threshold (Vt) lv9
-.PROBE lv9(M1)  
+* Measuringe voltage threshold (Vt) lv9
+.PROBE lv9(M1)
 .print lv9(M1)
 
-*probe Saturation Voltage (VDSAT or VSAT) lv10
-* .PROBE lv10(M1)
-* .print lv10(M1)
+* Measuring Saturation Voltage (VDSAT or VSAT) lv10
+.PROBE lv10(M1)
+.print lv10(M1)
 
-*probe Drain Diode Periphery (PD) lv11
-* .PROBE lv12(M1)
+* Measuring Drain Diode Periphery (PD) lv11
+* .PROBE lv11(M1)
+* .print lv11(M1)
 
-*probe Source Diode Periphery (PS) lv12
+* Measuring Source Diode Periphery (PS) lv12
 * .PROBE lv12(M1)
+* .print lv12(M1)
+
+* Measuring effective mobility (μeff)
+.PROBE MOBEFF(M1)
+. print MOBEFF(M1) 
 
 .end
