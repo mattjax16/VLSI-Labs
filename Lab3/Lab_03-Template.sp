@@ -20,8 +20,8 @@ M1 vo vi gnd gnd n105 W=300n L=l
 M2 vo vi vdd vdd p105 W=300n L=l
 
 *define parameters
-.param vdd = 5
-*.param vdd = 1.05
+* .param vdd = 5
+.param vdd = 1.05
 .param l = 100n
 .param trf = 6p *initial rise/fall time of the transient source
 .param del = 1u 
@@ -35,20 +35,20 @@ vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
 *.tran 1p 6u
 .tran 1p 40u
 .measure tran outrise 
-+trig v(vo) val='vdd*0.1' rise=2
-+targ v(vo) val='vdd*0.9' rise=2
++trig v(vo) val='vdd*0.1' rise=6p
++targ v(vo) val='vdd*0.9' rise=6p
 
 .measure tran outfall 
-+trig v(vo) val='vdd*0.9' fall=2
-+targ v(vo) val='vdd*0.1' fall=2
++trig v(vo) val='vdd*0.9' fall=6p
++targ v(vo) val='vdd*0.1' fall=6p
 
-.measure tran tphl 
-+trig v(vi) val='vdd*0.5' rise=2
-+targ v(vo) val='vdd*0.5' fall=2
+* .measure tran tphl 
+* +trig v(vi) val='vdd*0.5' rise=6p
+* +targ v(vo) val='vdd*0.5' fall=6p
 
-.measure tran tplh 
-+trig v(vi) val='vdd*0.5' fall=2
-+targ v(vo) val='vdd*0.5' rise=2
+* .measure tran tplh 
+* +trig v(vi) val='vdd*0.5' fall=6p
+* +targ v(vo) val='vdd*0.5' rise=6p
 
 .end
 

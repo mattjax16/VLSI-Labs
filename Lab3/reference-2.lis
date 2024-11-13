@@ -5,12 +5,12 @@
   with the terms and conditions of a written license agreement with
   Synopsys, Inc. All other use, reproduction, or distribution of
   this software is strictly prohibited.
-  Input File: lab03_measure.sp                                                  
-  Command line options: /usr/cots/synopsys/HSPICE-K-2015.06-3/hspice/linux64/hspice -i lab03_measure.sp -o lab03_measure-q1.lis
+  Input File: reference.sp                                                      
+  Command line options: /usr/cots/synopsys/HSPICE-K-2015.06-3/hspice/linux64/hspice -i reference.sp -o reference-2.lis
  lic:  
  lic: FLEXlm: v11.2.1 
  lic: USER:   mbass01              HOSTNAME: vm-hw04 
- lic: HOSTID: 005056000004         PID:      4112515 
+ lic: HOSTID: 005056000004         PID:      4114567 
  lic: Using FLEXlm license file: 
  lic: 27000@vm-license1 
  lic: Checkout 1 hspice 
@@ -20,11 +20,11 @@
  Init: read install configuration file: /usr/cots/synopsys/HSPICE-K-2015.06-3/hspice/meta.cfg
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
  ******  
- inverter
+ *this is an inverter spice file for the lab5, part2
 
  ****** mos   model parameters tnom=  25.000 temp=  25.000 ******
- Model file: lab03_measure.sp
- Model line:           12
+ Model file: reference.sp
+ Model line:            8
  Model Name: n105  
  BSIM4 Model (Level 54)
     MOBMOD = 0
@@ -568,8 +568,8 @@
     PFGISL      =      0 
     PKGISL      =      0 
     PRGISL      =      0 
- Model file: lab03_measure.sp
- Model line:           13
+ Model file: reference.sp
+ Model line:            9
  Model Name: p105  
  BSIM4 Model (Level 54)
     MOBMOD = 0
@@ -1113,8 +1113,8 @@
     PFGISL      =      0 
     PKGISL      =      0 
     PRGISL      =      0 
-  **warning** (lab03_measure.sp:17) Both nodes of element vgnd are connected together; Line ignored.
-  **info** (lab03_measure.sp:46) DC voltage reset to initial transient source value in source            0:vinput. new dc=  0.0000D+00
+  **warning** (reference.sp:12) Both nodes of element vgnd are connected together; Line ignored.
+  **info** (reference.sp:23) DC voltage reset to initial transient source value in source            0:vinput. new dc=  0.0000D+00
   
       
  *****************************************************************
@@ -1124,7 +1124,7 @@
  **info** dc convergence successful at Newton-Raphson method 
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
  ******  
- inverter
+ *this is an inverter spice file for the lab5, part2
 
  ****** operating point information tnom=  25.000 temp=  25.000 ******
  ****** operating point status is voltage   simulation time is     0.     
@@ -1133,16 +1133,18 @@
  +0:vdd     =   1.0500  0:vi      =   0.      0:vo      =   1.0500 
 
  ******
- inverter
+ *this is an inverter spice file for the lab5, part2
 
  ****** transient analysis tnom=  25.000 temp=  25.000 ******
- outrise=  16.8895p  targ=   9.5000u   trig=   9.5000u
- outfall=   9.4911p  targ=   5.0000u   trig=   5.0000u
+ outrise=  16.8893p  targ=  19.5000u   trig=  19.5000u
+ outfall=   9.5381p  targ=  15.0000u   trig=  15.0000u
+ tphl=   9.5452p  targ=  15.0000u   trig=  15.0000u
+ tplh=  14.7322p  targ=  19.5000u   trig=  19.5000u
 
           ***** job concluded
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
  ******  
- inverter
+ *this is an inverter spice file for the lab5, part2
 
  ****** job statistics summary tnom=  25.000 temp=  25.000 ******
   
@@ -1182,18 +1184,18 @@
 
   analysis           time    # points   tot. iter  conv.iter
   op point           0.00           1           7
-  transient          0.43    40000001         552         240 rev=        10
-  readin             1.13
-  errchk             0.00
+  transient          0.42    40000001         552         240 rev=        10
+  readin             1.11
+  errchk             0.01
   setup              0.00
   output             0.00
 
 
            peak memory used        275.39 megabytes
-           total cpu time            1.56 seconds
-           total elapsed time        1.08 seconds
-           job started at     12:21:50 11/13/2024
-           job ended   at     12:21:52 11/13/2024
+           total cpu time            1.54 seconds
+           total elapsed time        1.09 seconds
+           job started at     12:43:00 11/13/2024
+           job ended   at     12:43:01 11/13/2024
 
 
  lic: Release hspice token(s) 

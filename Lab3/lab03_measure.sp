@@ -17,18 +17,17 @@ vvdd vdd 0 vdd   *syntax:vname pos_node neg_node voltage_value
 vgnd gnd 0 0v
 
 *define parameters
-.param vdd = 5
-*.param vdd = 1.05
-.param l = 100n
+.param vdd = 1.05 *Define the voltage value of Vdd as 1.05V.
+.param l = 100n *Set the Length of the NMOS and PMOS as a constant: 100n
 .param trf = 6p *initial rise/fall time of the transient source
-.param del = 1u 
-.param pw = 1u
-.param per = 2u
-.param w_p = 300n
-.param w_n = 300n
+.param del = 1u *Defines the delay (del) before the pulse starts as 1 microsecond.
+.param pw = 1u *Defines the pulse width (pw) as 1 microsecond.
+.param per = 2u *Defines the period (per) of the pulse as 2 microseconds.
+.param w_p = 300n *Defines the width of the PMOS transistor as 300n.
+.param w_n = 300n *Defines the width of the NMOS transistor as 300n.
 
-M1 vo vi gnd gnd n105 W=w_n L=l
-M2 vo vi vdd vdd p105 W=w_p L=l
+M1 vo vi gnd gnd n105 W=w_n L=l *Define the NMOS transistor with the given parameters.
+M2 vo vi vdd vdd p105 W=w_p L=l *Define the PMOS transistor with the given parameters.
 
 
 
@@ -40,21 +39,20 @@ M2 vo vi vdd vdd p105 W=w_p L=l
 * pmos, w=300n, L=100n.
 * M1 d g gnd! b n105 W=300n L=100n
 *syntax: Model_name Drain Gate Source Bulk Model (Width; Length; etc.)
-* Use ‘6p’ for all the rise time and fall time of the input pulse.
+* Use ‘6p’ (trf) for all the rise time and fall time of the input pulse.
 
 *define analysis voltage
 * vinput vi gnd pulse 0 vdd del trf trf pw per
-vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
+* vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
 
-* * .tran 1p 6u When i use this form class code it doesnt reach outrise measurment
-.tran 1p 40u
-.measure tran outrise 
-+trig v(vo) val='vdd*0.1' rise=trf
-+targ v(vo) val='vdd*0.9' rise=trf
+* .tran 1p 40u
+* .measure tran outrise 
+* +trig v(vo) val='vdd*0.1' rise=trf
+* +targ v(vo) val='vdd*0.9' rise=trf
 
-.measure tran outfall 
-+trig v(vo) val='vdd*0.9' fall=trf
-+targ v(vo) val='vdd*0.1' fall=trf
+* .measure tran outfall 
+* +trig v(vo) val='vdd*0.9' fall=trf
+* +targ v(vo) val='vdd*0.1' fall=trf
 
 
 **########### Question 2 ###########**
@@ -68,17 +66,16 @@ vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
 
 *define analysis voltage
 * vinput vi gnd pulse 0 vdd del trf trf pw per
-* vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
+vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
 
-* * .tran 1p 6u When i use this form class code it doesnt reach outrise measurment
-* .tran 1p 10u
-* .measure tran tphl 
-* +trig v(vi) val='vdd*0.5' rise=trf
-* +targ v(vo) val='vdd*0.5' fall=trf
+.tran 1p 40u
+.measure tran tphl 
++trig v(vi) val='vdd*0.5' rise=2
++targ v(vo) val='vdd*0.5' fall=2
 
-* .measure tran tplh 
-* +trig v(vi) val='vdd*0.5' fall=trf
-* +targ v(vo) val='vdd*0.5' rise=trf
+.measure tran tplh 
++trig v(vi) val='vdd*0.5' fall=2
++targ v(vo) val='vdd*0.5' rise=2
 
 
 **########### Question 3 ###########**
