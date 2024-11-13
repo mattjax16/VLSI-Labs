@@ -5,7 +5,7 @@ Inverter
 .include '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/lib/stdcell_rvt/hspice/saed32nm_rvt.spf'
 
 *post the results
-.option post
+** .option post * Comment out for q5 and 6
 .global vdd gnd
 
 *define model
@@ -66,16 +66,25 @@ M2 vo vi vdd vdd p105 W=w_p L=l *Define the PMOS transistor with the given param
 
 *define analysis voltage
 * vinput vi gnd pulse 0 vdd del trf trf pw per
-vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
+* vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
 
-.tran 1p 40u
-.measure tran tphl 
-+trig v(vi) val='vdd*0.5' rise=2
-+targ v(vo) val='vdd*0.5' fall=2
 
-.measure tran tplh 
-+trig v(vi) val='vdd*0.5' fall=2
-+targ v(vo) val='vdd*0.5' rise=2
+* .tran 1p 40u
+* .measure tran outrise 
+* +trig v(vo) val='vdd*0.1' rise=2
+* +targ v(vo) val='vdd*0.9' rise=2
+
+* .measure tran outfall 
+* +trig v(vo) val='vdd*0.9' fall=2
+* +targ v(vo) val='vdd*0.1' fall=2
+
+* .measure tran tphl 
+* +trig v(vi) val='vdd*0.5' rise=2
+* +targ v(vo) val='vdd*0.5' fall=2
+
+* .measure tran tplh 
+* +trig v(vi) val='vdd*0.5' fall=2
+* +targ v(vo) val='vdd*0.5' rise=2
 
 
 **########### Question 3 ###########**
@@ -86,15 +95,17 @@ vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
 * c. Change the Beta ratio of the NMOS and PMOS by sweeping the 
 *    Width of PMOS from 100n to 1000n with a step of 100n.
 * d. View the VOUT (y axis) plot.
+**NOTE lines in graph are for increasing width as you go from left to right**
 
 * *define analysis voltage
 * * vinput vi gnd pulse 0 vdd del trf trf pw per
 * vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
-
-* * Sweep and probe and print vout
-* .dc vinput 0 1.05 0.01 sweep p_w 100n 1000n 100n
+* .dc vinput 0 1.05 0.01 sweep w_p 100n 1000n 100n
 * .PROBE vout
-* .print vout
+* .print v(vo) w_p sweep_vin=vinput
+
+
+
 
 
 **########### Question 4 ###########**
@@ -102,14 +113,103 @@ vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
 * closest Width value of the PMOS that has the Switching Threshold closest to half 
 * of the Vdd (Vdd/2). We will use this balanced inverter for the following tasks. 
 
-*define analysis voltage
-* vinput vi gnd pulse 0 vdd del trf trf pw per
+* *define analysis voltage
+* * vinput vi gnd pulse 0 vdd del trf trf pw per
 * vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
+* .dc vinput 0 1.05 0.01 sweep w_p 100n 1000n 100n
+* .print v(vo) w_p sweep_vin=vinput
 
-* * Sweep and probe and print vout
-* .dc vinput 0 1.05 0.01 sweep p_w 100n 1000n 100n
-* .PROBE vout
-* .print vout
+
+
+**########### Question 5 ###########**
+* Set the Width of the PMOS to be the value you found in part 4.In this part, you are
+* required to discover one of the characteristics of the CMOS inverter: delay(Tp) as a
+* function of Vdd. Now set the Width of the PMOS to be the value you found in part 4.
+* Use the HSPICE .alter command to change the value of the parameter ‘vdd’ so that
+* the supply voltage will change: 0.5:0.1:1.05
+** The Width I found was 600n
+.param w_p = 600n
+
+* * define analysis voltage
+* * vinput vi gnd pulse 0 vdd del trf trf pw per
+vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
+
+*start to use .alter to run the hspice code multiple times
+** Measuring on the second rising and falling edge like in q2**
+** 1
+.alter
+.param vdd = 0.5
+.tran 1p 40u
+.measure tran tphl 
++trig v(vi) val='vdd*0.5' rise=2
++targ v(vo) val='vdd*0.5' fall=2
+.measure tran tplh 
++trig v(vi) val='vdd*0.5' fall=2
++targ v(vo) val='vdd*0.5' rise=2
+
+** 2
+.alter
+.param vdd = 0.6
+.tran 1p 40u
+.measure tran tphl 
++trig v(vi) val='vdd*0.5' rise=2
++targ v(vo) val='vdd*0.5' fall=2
+.measure tran tplh 
++trig v(vi) val='vdd*0.5' fall=2
++targ v(vo) val='vdd*0.5' rise=2
+
+** 3
+.alter
+.param vdd = 0.7
+.tran 1p 40u
+.measure tran tphl 
++trig v(vi) val='vdd*0.5' rise=2
++targ v(vo) val='vdd*0.5' fall=2
+.measure tran tplh 
++trig v(vi) val='vdd*0.5' fall=2
++targ v(vo) val='vdd*0.5' rise=2
+
+** 4
+.alter
+.param vdd = 0.8
+.tran 1p 40u
+.measure tran tphl 
++trig v(vi) val='vdd*0.5' rise=2
++targ v(vo) val='vdd*0.5' fall=2
+.measure tran tplh 
++trig v(vi) val='vdd*0.5' fall=2
++targ v(vo) val='vdd*0.5' rise=2
+
+** 5
+.alter
+.param vdd = 0.9
+.tran 1p 40u
+.measure tran tphl 
++trig v(vi) val='vdd*0.5' rise=2
++targ v(vo) val='vdd*0.5' fall=2
+.measure tran tplh 
++trig v(vi) val='vdd*0.5' fall=2
++targ v(vo) val='vdd*0.5' rise=2
+
+** 6
+.alter
+.param vdd = 1.05
+.tran 1p 40u
+.measure tran tphl 
++trig v(vi) val='vdd*0.5' rise=2
++targ v(vo) val='vdd*0.5' fall=2
+.measure tran tplh 
++trig v(vi) val='vdd*0.5' fall=2
++targ v(vo) val='vdd*0.5' rise=2
+
+
+
+
+
+
+**########### Question 6 ###########**
+
+
 
 
 
