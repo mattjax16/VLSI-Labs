@@ -29,8 +29,9 @@ vgnd gnd 0 0v
 .param pw = 1u *Defines the pulse width (pw) as 1 microsecond.
 .param per = 2u *Defines the period (per) of the pulse as 2 microseconds.
 
-
+*MN
 M1 vo vi gnd gnd n105 W=w_n L=l *Define the NMOS transistor with the given parameters.
+* MP
 M2 vo vi vdd vdd p105 W=w_p L=l *Define the PMOS transistor with the given parameters.
 
 
