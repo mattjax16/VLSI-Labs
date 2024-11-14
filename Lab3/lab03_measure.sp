@@ -5,7 +5,7 @@ Inverter
 .include '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/lib/stdcell_rvt/hspice/saed32nm_rvt.spf'
 
 *post the results
-** .option post * Comment out for q5 and 6
+* .option post * Comment out for q5 and 6
 .global vdd gnd
 
 *define model
@@ -43,16 +43,15 @@ M2 vo vi vdd vdd p105 W=w_p L=l *Define the PMOS transistor with the given param
 
 *define analysis voltage
 * vinput vi gnd pulse 0 vdd del trf trf pw per
-* vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
 
-* .tran 1p 40u
+* .tran 1p 6u
 * .measure tran outrise 
-* +trig v(vo) val='vdd*0.1' rise=trf
-* +targ v(vo) val='vdd*0.9' rise=trf
+* +trig v(vo) val='vdd*0.1' rise=2
+* +targ v(vo) val='vdd*0.9' rise=2
 
 * .measure tran outfall 
-* +trig v(vo) val='vdd*0.9' fall=trf
-* +targ v(vo) val='vdd*0.1' fall=trf
+* +trig v(vo) val='vdd*0.9' fall=2
+* +targ v(vo) val='vdd*0.1' fall=2
 
 
 **########### Question 2 ###########**
@@ -66,10 +65,8 @@ M2 vo vi vdd vdd p105 W=w_p L=l *Define the PMOS transistor with the given param
 
 *define analysis voltage
 * vinput vi gnd pulse 0 vdd del trf trf pw per
-* vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
 
-
-* .tran 1p 40u
+* .tran 1p 6u
 * .measure tran outrise 
 * +trig v(vo) val='vdd*0.1' rise=2
 * +targ v(vo) val='vdd*0.9' rise=2
@@ -98,8 +95,7 @@ M2 vo vi vdd vdd p105 W=w_p L=l *Define the PMOS transistor with the given param
 **NOTE lines in graph are for increasing width as you go from left to right**
 
 * *define analysis voltage
-* * vinput vi gnd pulse 0 vdd del trf trf pw per
-* vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
+*  vinput vi gnd pulse 0 vdd del trf trf pw per
 * .dc vinput 0 1.05 0.01 sweep w_p 100n 1000n 100n
 * .PROBE vout
 * .print v(vo) w_p sweep_vin=vinput
@@ -114,8 +110,7 @@ M2 vo vi vdd vdd p105 W=w_p L=l *Define the PMOS transistor with the given param
 * of the Vdd (Vdd/2). We will use this balanced inverter for the following tasks. 
 
 * *define analysis voltage
-* * vinput vi gnd pulse 0 vdd del trf trf pw per
-* vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
+*  vinput vi gnd pulse 0 vdd del trf trf pw per
 * .dc vinput 0 1.05 0.01 sweep w_p 100n 1000n 100n
 * .print v(vo) w_p sweep_vin=vinput
 
@@ -127,80 +122,79 @@ M2 vo vi vdd vdd p105 W=w_p L=l *Define the PMOS transistor with the given param
 * function of Vdd. Now set the Width of the PMOS to be the value you found in part 4.
 * Use the HSPICE .alter command to change the value of the parameter ‘vdd’ so that
 * the supply voltage will change: 0.5:0.1:1.05
-** The Width I found was 600n
-.param w_p = 600n
+* ** The Width I found was 600n
+* .param w_p = 600n
 
-* * define analysis voltage
-* * vinput vi gnd pulse 0 vdd del trf trf pw per
-vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
+* * * * define analysis voltage
+* vinput vi gnd pulse 0 vdd del trf trf pw per
 
-*start to use .alter to run the hspice code multiple times
-** Measuring on the second rising and falling edge like in q2**
-** 1
-.alter
-.param vdd = 0.5
-.tran 1p 40u
-.measure tran tphl 
-+trig v(vi) val='vdd*0.5' rise=2
-+targ v(vo) val='vdd*0.5' fall=2
-.measure tran tplh 
-+trig v(vi) val='vdd*0.5' fall=2
-+targ v(vo) val='vdd*0.5' rise=2
+* * *start to use .alter to run the hspice code multiple times
+* * ** Measuring on the second rising and falling edge like in q2**
+* * ** 1
+* .alter
+* .param vdd = 0.5
+* .tran 1p 6u
+* .measure tran tphl 
+* +trig v(vi) val='vdd*0.5' rise=2
+* +targ v(vo) val='vdd*0.5' fall=2
+* .measure tran tplh 
+* +trig v(vi) val='vdd*0.5' fall=2
+* +targ v(vo) val='vdd*0.5' rise=2
 
-** 2
-.alter
-.param vdd = 0.6
-.tran 1p 40u
-.measure tran tphl 
-+trig v(vi) val='vdd*0.5' rise=2
-+targ v(vo) val='vdd*0.5' fall=2
-.measure tran tplh 
-+trig v(vi) val='vdd*0.5' fall=2
-+targ v(vo) val='vdd*0.5' rise=2
+* ** 2
+* .alter
+* .param vdd = 0.6
+* .tran 1p 6u
+* .measure tran tphl 
+* +trig v(vi) val='vdd*0.5' rise=2
+* +targ v(vo) val='vdd*0.5' fall=2
+* .measure tran tplh 
+* +trig v(vi) val='vdd*0.5' fall=2
+* +targ v(vo) val='vdd*0.5' rise=2
 
-** 3
-.alter
-.param vdd = 0.7
-.tran 1p 40u
-.measure tran tphl 
-+trig v(vi) val='vdd*0.5' rise=2
-+targ v(vo) val='vdd*0.5' fall=2
-.measure tran tplh 
-+trig v(vi) val='vdd*0.5' fall=2
-+targ v(vo) val='vdd*0.5' rise=2
+* ** 3
+* .alter
+* .param vdd = 0.7
+* .tran 1p 6u
+* .measure tran tphl 
+* +trig v(vi) val='vdd*0.5' rise=2
+* +targ v(vo) val='vdd*0.5' fall=2
+* .measure tran tplh 
+* +trig v(vi) val='vdd*0.5' fall=2
+* +targ v(vo) val='vdd*0.5' rise=2
 
-** 4
-.alter
-.param vdd = 0.8
-.tran 1p 40u
-.measure tran tphl 
-+trig v(vi) val='vdd*0.5' rise=2
-+targ v(vo) val='vdd*0.5' fall=2
-.measure tran tplh 
-+trig v(vi) val='vdd*0.5' fall=2
-+targ v(vo) val='vdd*0.5' rise=2
+* ** 4
+* .alter
+* .param vdd = 0.8
+* .tran 1p 6u
+* .measure tran tphl 
+* +trig v(vi) val='vdd*0.5' rise=2
+* +targ v(vo) val='vdd*0.5' fall=2
+* .measure tran tplh 
+* +trig v(vi) val='vdd*0.5' fall=2
+* +targ v(vo) val='vdd*0.5' rise=2
 
-** 5
-.alter
-.param vdd = 0.9
-.tran 1p 40u
-.measure tran tphl 
-+trig v(vi) val='vdd*0.5' rise=2
-+targ v(vo) val='vdd*0.5' fall=2
-.measure tran tplh 
-+trig v(vi) val='vdd*0.5' fall=2
-+targ v(vo) val='vdd*0.5' rise=2
+* ** 5
+* .alter
+* .param vdd = 0.9
+* .tran 1p 6u
+* .measure tran tphl 
+* +trig v(vi) val='vdd*0.5' rise=2
+* +targ v(vo) val='vdd*0.5' fall=2
+* .measure tran tplh 
+* +trig v(vi) val='vdd*0.5' fall=2
+* +targ v(vo) val='vdd*0.5' rise=2
 
-** 6
-.alter
-.param vdd = 1.05
-.tran 1p 40u
-.measure tran tphl 
-+trig v(vi) val='vdd*0.5' rise=2
-+targ v(vo) val='vdd*0.5' fall=2
-.measure tran tplh 
-+trig v(vi) val='vdd*0.5' fall=2
-+targ v(vo) val='vdd*0.5' rise=2
+* ** 6
+* .alter
+* .param vdd = 1.05
+* .tran 1p 6u
+* .measure tran tphl 
+* +trig v(vi) val='vdd*0.5' rise=2
+* +targ v(vo) val='vdd*0.5' fall=2
+* .measure tran tplh 
+* +trig v(vi) val='vdd*0.5' fall=2
+* +targ v(vo) val='vdd*0.5' rise=2
 
 
 
@@ -217,31 +211,6 @@ vinput vi gnd pulse 0 vdd 5u trf trf 4.5u 10u
 
 
 
-
-
-
-
-*************************************************************************************
-*define analysis voltage
-*vinput vi gnd pulse 0 vdd del trf trf pw per
-* vinput vi gnd pulse 0 vdd 5u 0.5u 0.5u 4.5u 10u
-* * .tran 1p 6u When i use this form class code it doesnt reach outrise measurment
-* .tran 1p 10u
-* .measure tran outrise 
-* +trig v(vo) val='vdd*0.1' rise=2
-* +targ v(vo) val='vdd*0.9' rise=2
-
-* .measure tran outfall 
-* +trig v(vo) val='vdd*0.9' fall=2
-* +targ v(vo) val='vdd*0.1' fall=2
-
-* .measure tran tphl 
-* +trig v(vi) val='vdd*0.5' rise=2
-* +targ v(vo) val='vdd*0.5' fall=2
-
-* .measure tran tplh 
-* +trig v(vi) val='vdd*0.5' fall=2
-* +targ v(vo) val='vdd*0.5' rise=2
 
 .end
 
