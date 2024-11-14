@@ -5,7 +5,7 @@ Inverter
 .include '/usr/cots/synopsys/UniversityLibrary/SAED32_EDK/lib/stdcell_rvt/hspice/saed32nm_rvt.spf'
 
 *post the results
-* .option post * Comment out for q5 and 6
+.option post * Comment out for q5 and 6
 .global vdd gnd
 
 *define model
