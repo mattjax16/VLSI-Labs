@@ -36,7 +36,7 @@ M2 vo vi vdd vdd p105 W=w_p L=l *Define the PMOS transistor with the given param
 
 
 
-* First we will make the balance laod inverters. The PMOS width is 600n.
+* First we will make the balance load inverters. The PMOS width is 600n.
 * The NMOS width is 300n. The length of both transistors is 100n.
 * Balance Load Inverter 1
 M3 load_1_out vo gnd gnd n105 W=300n L=100n
