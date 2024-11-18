@@ -55,7 +55,7 @@ M6 load_2_out vo vdd vdd p105 W=600n L=100n
 * Use ‘6p’ (trf) for all the rise time and fall time of the input pulse.
 
 * define analysis voltage
-* vinput vi gnd pulse 0 vdd del trf trf pw per
+vinput vi gnd pulse 0 vdd del trf trf pw per
 
 **########### Question 2 ###########**
 * 2. Definitions of waveforms: (Example code is attached at the end of the assignment)
