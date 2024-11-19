@@ -89,8 +89,8 @@ XINV1 in out inv1
 .param c_load = (64 * c_input)
 
 * Making Load Capacitance
-* CLOAD out gnd c_load
-CLOAD out gnd 175.2256f * Pre calculated
+CLOAD out gnd c_load
+* CLOAD out gnd 175.2256f * Pre calculated
 
 * Run the simulation for 30u
 .tran 1p 30u
