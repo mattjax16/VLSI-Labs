@@ -89,8 +89,57 @@ XINV1 in out inv1
 .param c_load = (64 * c_input)
 
 * Making Load Capacitance
-CLOAD out gnd c_load
+* CLOAD out gnd c_load
 * CLOAD out gnd 175.2256f * Pre calculated
+
+* * Run the simulation for 30u
+* .tran 1p 30u
+
+
+**#### C ####**
+* Use the schematic in p.41 as a reference and construct four inverter chains for N
+* (number of stages) from 1 to 4. For the rest stages, you need to set the CMOS
+* parameters for inverters (except the first one) based on the total number of
+* stages and the design rule learnt in class.
+
+* Define Scaling Factor for Transistor Widths
+* Assuming each subsequent stage doubles the transistor widths
+* Stage 1: W_p=600n, W_n=300n
+* Stage 2: W_p=1200n, W_n=600n
+* Stage 3: W_p=2400n, W_n=1200n
+* Stage 4: W_p=4800n, W_n=2400n
+** This assumption is wrong i need to go back and calc **
+
+* --- Inverter Chain for N=1 ---
+* Output Node: out1
+XINV1_1 vi out1 vdd gnd inverter W_p=600n W_n=300n
+* Load Capacitance
+CLOAD1 out1 gnd c_load
+
+* --- Inverter Chain for N=2 ---
+* Output Nodes: out2
+XINV2_1 vi mid1 vdd gnd inverter W_p=600n W_n=300n
+XINV2_2 mid1 out2 vdd gnd inverter W_p=1200n W_n=600n
+* Load Capacitance
+CLOAD2 out2 gnd c_load
+
+* --- Inverter Chain for N=3 ---
+* Output Nodes: out3
+XINV3_1 vi mid2 vdd gnd inverter W_p=600n W_n=300n
+XINV3_2 mid2 mid3 vdd gnd inverter W_p=1200n W_n=600n
+XINV3_3 mid3 out3 vdd gnd inverter W_p=2400n W_n=1200n
+* Load Capacitance
+CLOAD3 out3 gnd c_load
+
+* --- Inverter Chain for N=4 ---
+* Output Nodes: out4
+XINV4_1 vi mid4 vdd gnd inverter W_p=600n W_n=300n
+XINV4_2 mid4 mid5 vdd gnd inverter W_p=1200n W_n=600n
+XINV4_3 mid5 mid6 vdd gnd inverter W_p=2400n W_n=1200n
+XINV4_4 mid6 out4 vdd gnd inverter W_p=4800n W_n=2400n
+* Load Capacitance
+CLOAD4 out4 gnd c_load
+
 
 * Run the simulation for 30u
 .tran 1p 30u
