@@ -27,7 +27,7 @@ vgnd gnd 0 0v
 
 
 ** for tranient analysis
-.param trf = 4p *initial rise/fall time of the transient source
+.param trf = 6p *initial rise/fall time of the transient source
 .param del = 2u *Defines the delay (del) before the pulse starts as 2 microsecond.
 .param per = 10u *Defines the pulse width (pw) as 10 microsecond.
 .param pw = 5u *Defines the period (per) of the pulse as 5 microseconds.
@@ -60,17 +60,21 @@ vinput vi gnd pulse 0 vdd del trf trf pw per
 * Making First Inverster
 .subckt inv1 in out
 * Not sure if for M1 should use vdd! or vdd or is it the same thing?
-* M1 out in vdd vdd p105 W=600n L=100n
-M1 out in vdd! vdd! p105 W=600n L=100n
+M1 out in vdd vdd p105 W=600n L=100n
+* M1 out in vdd! vdd! p105 W=600n L=100n
 M2 out in gnd gnd n105 W=300n L=100n
 .ends
 
 * Connect the first inverter to main input and output
-XINV1 vi vo inv1
+XINV1 in out inv1
 
 
 * Measure the input capacitance
 .option CAPTAB=1
+*** .PRINT CAP (all) ** Prob dont need prints all capacitance
+
+* Run the simulation for 30u
+.tran 1p 30u
 
 
 
