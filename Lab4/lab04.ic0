@@ -1,7 +1,7 @@
 * "simulator" "HSPICE" 
 * "version" "K-2015.06-3 linux64"
 * "format" "HSP"
-* "rundate" "12:50:57 11/19/2024 "
+* "rundate" "13:12:09 11/19/2024 "
 * "netlist" "lab04.sp "
 * "runtitle" "inverter"
 * time =    0.            
@@ -11,7 +11,17 @@
 + gmindc=   1.0000p       
 .nodeset
 + in =   0.            
++ mid1 =   1.0500        
++ mid2 =   1.0500        
++ mid3 =  46.8614n       
++ mid4 =   1.0500        
++ mid5 =  46.8614n       
++ mid6 =   1.0500        
 + out =   1.0500        
++ out1 =   1.0500        
++ out2 =  46.8614n       
++ out3 =   1.0500        
++ out4 = 113.2821n       
 + vdd =   1.0500        
 + vi =   0.            
 ***   END: Saved Operating Point ***                     

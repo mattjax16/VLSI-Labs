@@ -57,17 +57,18 @@ vinput vi gnd pulse 0 vdd del trf trf pw per
 ** XINV1 in out1 inv1
 ** XINV2 out1 out inv2
 
-* Making First Inverster
-.subckt inv1 in out
-* Not sure if for M1 should use vdd! or vdd or is it the same thing gives different 
-*result gussing it is wrong because doesnt match pdf
-* M1 out in vdd! vdd! p105 W=600n L=100n
-M1 out in vdd vdd p105 W=600n L=100n
-M2 out in gnd gnd n105 W=300n L=100n
-.ends
+** #### COMMENT OUT FOR C #### **
+* * Making First Inverster
+* .subckt inv1 in out
+* * Not sure if for M1 should use vdd! or vdd or is it the same thing gives different 
+* *result gussing it is wrong because doesnt match pdf
+* * M1 out in vdd! vdd! p105 W=600n L=100n
+* M1 out in vdd vdd p105 W=600n L=100n
+* M2 out in gnd gnd n105 W=300n L=100n
+* .ends
 
-* Connect the first inverter to main input and output
-XINV1 in out inv1
+* * Connect the first inverter to main input and output
+* XINV1 in out inv1
 
 
 * Measure the input capacitance
@@ -109,6 +110,14 @@ XINV1 in out inv1
 * Stage 3: W_p=2400n, W_n=1200n
 * Stage 4: W_p=4800n, W_n=2400n
 ** This assumption is wrong i need to go back and calc **
+
+* Generic Inverter Subcircuit
+.subckt inverter in out vdd gnd W_p=600n W_n=300n
+    M_p out in vdd vdd p105 W=W_p L=100n
+    M_n out in gnd gnd n105 W=W_n L=100n
+.ends inverter
+
+
 
 * --- Inverter Chain for N=1 ---
 * Output Node: out1
