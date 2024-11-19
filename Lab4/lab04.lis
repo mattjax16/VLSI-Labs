@@ -10,7 +10,7 @@
  lic:  
  lic: FLEXlm: v11.2.1 
  lic: USER:   mbass01              HOSTNAME: vm-hw08 
- lic: HOSTID: 005056000008         PID:      2005867 
+ lic: HOSTID: 005056000008         PID:      2008538 
  lic: Using FLEXlm license file: 
  lic: 27000@vm-license1 
  lic: Checkout 1 hspice 
@@ -33,7 +33,7 @@
 
  ****** mos   model parameters tnom=  25.000 temp=  25.000 ******
  Model file: lab04.sp
- Model line:           12
+ Model line:           19
  Model Name: n105  
  BSIM4 Model (Level 54)
     MOBMOD = 0
@@ -578,7 +578,7 @@
     PKGISL      =      0 
     PRGISL      =      0 
  Model file: lab04.sp
- Model line:           13
+ Model line:           20
  Model Name: p105  
  BSIM4 Model (Level 54)
     MOBMOD = 0
@@ -1122,13 +1122,13 @@
     PFGISL      =      0 
     PKGISL      =      0 
     PRGISL      =      0 
-  **warning** (lab04.sp:17) Both nodes of element vgnd are connected together; Line ignored.
-  **info** (lab04.sp:36) DC voltage reset to initial transient source value in source            0:vinput. new dc=  0.0000D+00
+  **warning** (lab04.sp:24) Both nodes of element vgnd are connected together; Line ignored.
+  **info** (lab04.sp:43) DC voltage reset to initial transient source value in source            0:vinput. new dc=  0.0000D+00
   
 
   **warning** the following singular supplies were terminated to 1 meg resistor 
           supply       node1            node2
-(lab04.sp:36)vinput                  0:vi               defined in subckt 0                     0:0                defined in subckt 0               
+(lab04.sp:43)vinput                  0:vi               defined in subckt 0                     0:0                defined in subckt 0               
              
  Warning:'No DC path nodes' occurs 1 times
  No DC path from the following nodes,connected with gdcpath:
@@ -1213,18 +1213,18 @@
 
   analysis           time    # points   tot. iter  conv.iter
   op point           0.00           1           7
-  transient          0.32    30000001         302         151 rev=        12
-  readin             1.10
-  errchk             0.00
+  transient          0.33    30000001         302         151 rev=        12
+  readin             1.08
+  errchk             0.01
   setup              0.00
   output             0.00
 
 
            peak memory used        275.39 megabytes
            total cpu time            1.42 seconds
-           total elapsed time        0.96 seconds
-           job started at     12:23:00 11/19/2024
-           job ended   at     12:23:01 11/19/2024
+           total elapsed time        0.98 seconds
+           job started at     12:36:04 11/19/2024
+           job ended   at     12:36:05 11/19/2024
 
 
  lic: Release hspice token(s) 

@@ -6,6 +6,13 @@ Inverter
 
 *post the results
 .option post
+
+** For q1 a**
+* Measure the input capacitance
+.option CAPTAB=1
+
+
+* define global variables
 .global vdd gnd
 
 *define model
@@ -59,9 +66,10 @@ vinput vi gnd pulse 0 vdd del trf trf pw per
 
 * Making First Inverster
 .subckt inv1 in out
-* Not sure if for M1 should use vdd! or vdd or is it the same thing?
-M1 out in vdd vdd p105 W=600n L=100n
+* Not sure if for M1 should use vdd! or vdd or is it the same thing gives different 
+*result gussing it is wrong because doesnt match pdf
 * M1 out in vdd! vdd! p105 W=600n L=100n
+M1 out in vdd vdd p105 W=600n L=100n
 M2 out in gnd gnd n105 W=300n L=100n
 .ends
 
@@ -69,8 +77,7 @@ M2 out in gnd gnd n105 W=300n L=100n
 XINV1 in out inv1
 
 
-* Measure the input capacitance
-.option CAPTAB=1
+
 *** .PRINT CAP (all) ** Prob dont need prints all capacitance
 
 * Run the simulation for 30u
