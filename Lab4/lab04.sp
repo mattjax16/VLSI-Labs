@@ -19,7 +19,7 @@ vgnd gnd 0 0v
 
 *define parameters
 ** for transistors
-* .param vdd = 1.05
+.param vdd = 1.05
 * .param l = 100n
 
 * M1 vo vi gnd gnd n105 W=300n L=l
@@ -65,6 +65,10 @@ M1 out in vdd! vdd! p105 W=600n L=100n
 M2 out in gnd gnd n105 W=300n L=100n
 .ends
 
+* Connect the first inverter to main input and output
+XINV1 vi vo inv1
+
+
 * Measure the input capacitance
 .option CAPTAB=1
 
@@ -75,16 +79,16 @@ M2 out in gnd gnd n105 W=300n L=100n
 
 
 **** FROM EXAMPLE ****
-.model opt1 opt
-.param wp = OPTrange(400n, 200n, 1000n)
+* .model opt1 opt
+* .param wp = OPTrange(400n, 200n, 1000n)
 
 
 
-.measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2
-.measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
-.measure tran tpd param='tphl-tplh' goal=0
+* .measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2
+* .measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
+* .measure tran tpd param='tphl-tplh' goal=0
 
-.tran 1p '3*per' sweep optimize=OPTrange RESULTS=tpd MODEL=OPT1
+* .tran 1p '3*per' sweep optimize=OPTrange RESULTS=tpd MODEL=OPT1
 
 .end
 
