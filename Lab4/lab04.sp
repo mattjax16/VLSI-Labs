@@ -6,13 +6,6 @@ Inverter
 
 *post the results
 .option post
-
-** For q1 a**
-* Measure the input capacitance
-.option CAPTAB=1
-
-
-* define global variables
 .global vdd gnd
 
 *define model
@@ -77,16 +70,30 @@ M2 out in gnd gnd n105 W=300n L=100n
 XINV1 in out inv1
 
 
-
+* Measure the input capacitance
+.option CAPTAB=1
 *** .PRINT CAP (all) ** Prob dont need prints all capacitance
+
+* * Run the simulation for 30u
+* .tran 1p 30u
+
+
+**#### B ####**
+* Connect a load capacitance at the end of the output of the inverter chain. Make
+* the capacitance value 64 times larger than the value you just measured in step a.
+* Code: cload out gnd 150f
+* (CapName) (Nodes) (Value)
+
+* Parameters and Calculating Load Capacitance
+.param c_input = 2.7379f ** NOT sure wetheer to use 2.738E-15 or 2.7379f
+.param c_load = (64 * c_input)
+
+* Making Load Capacitance
+* CLOAD out gnd c_load
+CLOAD out gnd 175.2256f * Pre calculated
 
 * Run the simulation for 30u
 .tran 1p 30u
-
-
-
-
-
 
 
 **** FROM EXAMPLE ****
