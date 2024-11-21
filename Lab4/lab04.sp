@@ -20,10 +20,6 @@ vgnd gnd 0 0v
 *define parameters
 ** for transistors
 .param vdd = 1.05
-* .param l = 100n
-
-* M1 vo vi gnd gnd n105 W=300n L=l
-* M2 vo vi vdd vdd p105 W=wp L=l
 
 
 ** for tranient analysis
@@ -81,13 +77,12 @@ vinput vi gnd pulse 0 vdd del trf trf pw per
 * Code: cload out gnd 150f
 * (CapName) (Nodes) (Value)
 
-* * Parameters and Calculating Load Capacitance
-* .param c_input = 2.7379f ** NOT sure wetheer to use 2.738E-15 or 2.7379f
-* .param c_load = (64 * c_input)
+* Parameters and Calculating Load Capacitance
+.param c_input = 2.7379f 
+.param c_load = (64 * c_input) ** 175.2256f Pre calculated
 
-* Making Load Capacitance
-* CLOAD out gnd c_load
-* CLOAD out gnd 175.2256f * Pre calculated
+* Load Capacitance
+* CLOAD vo gnd c_load
 
 * * Run the simulation for 30u
 * .tran 1p 30u
@@ -121,17 +116,16 @@ vinput vi gnd pulse 0 vdd del trf trf pw per
 * XINV_3 out2 vo vdd gnd inverter W_p=4800n W_n=2400n * Scale = 8
 
 
-* * --- Inverter Chain for N=4 ---
-* * Scales: 1, 2.8, 8, 22.6
+* * * --- Inverter Chain for N=4 ---
+* * * Scales: 1, 2.8, 8, 22.6
 * XINV_1 vi out1 vdd gnd inverter W_p=600n W_n=300n * Scale = 1
 * XINV_2 out1 out2 vdd gnd inverter W_p=1680n W_n=840n * Scale = 2.8
 * XINV_3 out2 out3 vdd gnd inverter W_p=4800n W_n=2400n * Scale = 8
 * XINV_4 out3 vo vdd gnd inverter W_p=13560n W_n=6780n * Scale = 22.6
 
 
-
-* Load Capacitance
-* CLOAD1 vo gnd c_load
+* * Load Capacitance
+* CLOAD vo gnd c_load
 
 
 **#### D ####**
@@ -139,23 +133,16 @@ vinput vi gnd pulse 0 vdd del trf trf pw per
 * need to measure both tpHL and tpLH in order to get the delay Tp. Draw a table
 * similar to the one in p.40 in the VLSI-CMOS Inverter.pdf.
 
-* Define Scaling Factor for Transistor Widths
-* Assuming each subsequent stage doubles the transistor widths
-*: W_p=600n, W_n=300n for all stages then scaled by whatever factor specified
-
-
 *** MEASURE BUFFERS FOR ALL INVERTER CHAINS
 ** For ODD use tpHL - tpLH for EVEN use tpHH - tpLL
 ** Chain 1 and Chain 3
 * .measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2 
 * .measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
-* .measure tran tpd param='tphl-tplh' goal=0
 * .measure tran tp param='(tphl+tplh)/2' goal=0
 
 * * ** Chain 2 and Chain 4
 * .measure tran tphh trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' rise=2
 * .measure tran tpll trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' fall=2
-* .measure tran tpd param='tphh-tpll' goal=0
 * .measure tran tp param='(tphh+tpll)/2' goal=0
 
 
@@ -176,6 +163,9 @@ vinput vi gnd pulse 0 vdd del trf trf pw per
 * Making inverter to be optimized
 XINV vi vo vdd gnd inverter W_p=wp W_n=300n
 
+* Load Capacitance
+CLOAD vo gnd c_load
+
 * Optimization Model
 .model opt1 opt
 .param wp = OPTrange(400n, 200n, 1000n)
@@ -189,10 +179,10 @@ XINV vi vo vdd gnd inverter W_p=wp W_n=300n
 
 *** Comment out Part A and uncomment Part B for second optimization
 *** Part B: Optimize for minimum average delay tp = (tpHL + tpLH) / 2
-* .measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2
-* .measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
-* .measure tran tp param='(tplh+tphl)/2' goal=0
-* .tran 1p '3*per' sweep optimize=optrange results=tp model=OPT1 * Run optimization
+.measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2
+.measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
+.measure tran tp param='(tplh+tphl)/2' goal=0
+.tran 1p '3*per' sweep optimize=optrange results=tp model=OPT1 * Run optimization
 
 
 
@@ -211,10 +201,10 @@ XINV vi vo vdd gnd inverter W_p=wp W_n=300n
 * equals *0.1*Vdd
 
 
-* Measure Switching Threshold (Vm) = Vdd/2
-.measure dc vm find v(vi) when v(vo)='0.5*vdd' goal='vdd/2'
+* * Measure Switching Threshold (Vm) = Vdd/2
+* .measure dc vm find v(vi) when v(vo)='0.5*vdd' goal='vdd/2'
 
-* DC sweep with optimization
-.dc vi 0 1.05 0.01 sweep optimize=OPTrange results=vm model=OPT1
+* * DC sweep with optimization
+* .dc vi 0 1.05 0.01 sweep optimize=OPTrange results=vm model=OPT1
 
 .end

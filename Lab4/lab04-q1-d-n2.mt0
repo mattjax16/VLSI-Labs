@@ -1,8 +1,6 @@
 $DATA1 SOURCE='HSPICE' VERSION='K-2015.06-3 linux64' PARAM_COUNT=2
 .TITLE 'inverter'
  index            wp               tphh             tpll            
-                  tpd              tp               temper          
-                  alter#          
+                  tp               temper           alter#          
  1                 4.004e-07        2.202e-10        2.186e-10      
-                   1.603e-12        2.194e-10         25.0000       
-                  1               
+                   2.194e-10         25.0000        1               

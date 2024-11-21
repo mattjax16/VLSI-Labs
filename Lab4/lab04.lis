@@ -9,8 +9,8 @@
   Command line options: /usr/cots/synopsys/HSPICE-K-2015.06-3/hspice/linux64/hspice -i lab04.sp -o lab04.lis
  lic:  
  lic: FLEXlm: v11.2.1 
- lic: USER:   mbass01              HOSTNAME: vm-hw09 
- lic: HOSTID: 005056000009         PID:      854708 
+ lic: USER:   mbass01              HOSTNAME: vm-hw02 
+ lic: HOSTID: 005056000002         PID:      1248394 
  lic: Using FLEXlm license file: 
  lic: 27000@vm-license1 
  lic: Checkout 1 hspice 
@@ -18,7 +18,7 @@
  lic: 1(in_use)/50(total) FLOATING license(s) on SERVER 27000@vm-license1 
  lic:   
  Init: read install configuration file: /usr/cots/synopsys/HSPICE-K-2015.06-3/hspice/meta.cfg
-  **warning** (lab04.sp:112) Global net name, "vdd", in subckt pin list. The pin will be connected to the local net. Recommend to not use global net names in subckt pin lists.
+  **warning** (lab04.sp:57) Global net name, "vdd", in subckt pin list. The pin will be connected to the local net. Recommend to not use global net names in subckt pin lists.
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
  ******  
  inverter
@@ -27,16 +27,10 @@
  circuit number to circuit name directory
    number circuitname                     definition         multiplier
         0 main circuit
-        1 xinv1_1.                        inverter           1.00 
-        2 xinv2_1.                        inverter           1.00 
-        3 xinv2_2.                        inverter           1.00 
-        4 xinv3_1.                        inverter           1.00 
-        5 xinv3_2.                        inverter           1.00 
-        6 xinv3_3.                        inverter           1.00 
-        7 xinv4_1.                        inverter           1.00 
-        8 xinv4_2.                        inverter           1.00 
-        9 xinv4_3.                        inverter           1.00 
-       10 xinv4_4.                        inverter           1.00 
+        1 xinv_1.                         inverter           1.00 
+        2 xinv_2.                         inverter           1.00 
+        3 xinv_3.                         inverter           1.00 
+        4 xinv_4.                         inverter           1.00 
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
  ******  
  inverter
@@ -1149,7 +1143,7 @@
    difsiz=   1.00m           parmin= 100.00m        
   
   **warning** (lab04.sp:17) Both nodes of element vgnd are connected together; Line ignored.
-  **info** (lab04.sp:36) DC voltage reset to initial transient source value in source            0:vinput. new dc=  0.0000D+00
+  **info** (lab04.sp:32) DC voltage reset to initial transient source value in source            0:vinput. new dc=  0.0000D+00
   
       
  **info** set option symb=1 internally to help for convergence.
@@ -1163,20 +1157,20 @@
 
      optimization  results
 
-          residual sum of squares     =   11408.7    
-          norm of the gradient        =  7.099649E-04
-          marquardt scaling parameter =   4.00000    
-          no. of function evaluations =        4
+          residual sum of squares     =   44434.2    
+          norm of the gradient        =   0.00000    
+          marquardt scaling parameter =   1.00000    
+          no. of function evaluations =        2
           no. of iterations           =        0
 
      optimization completed
 
-          measured results < relout=  1.0000E-03 on last iterations
+          norm of gradient < grad=  1.0000E-06 on last iterations
 
  **** optimized parameters optrange
 *                                        %norm-sen        %change
 
- .param wp =   1.0000u       $  100.0000         60.0000       
+ .param wp = 400.4000n       $    0.              0.           
  ****
 
  **info** dc convergence successful at Newton-Raphson method 
@@ -1186,46 +1180,29 @@
 
  ****** operating point information tnom=  25.000 temp=  25.000 ******
  ****** operating point status is voltage   simulation time is     0.     
-     node    =voltage       node    =voltage       node    =voltage
+    node    =voltage      node    =voltage      node    =voltage
 
- + 0:mid1    =   1.0500   0:mid2    =   1.0500   0:mid3    =  72.4823n
- + 0:mid4    =   1.0500   0:mid5    =  57.4177n  0:mid6    =   1.0500 
- + 0:out1    =   1.0500   0:out2    = 113.2820n  0:out3    =   1.0500 
- + 0:out4    = 185.6666n  0:vdd     =   1.0500   0:vi      =   0.     
+ +0:out1    =   1.0500  0:out2    =  57.4177n 0:out3    =   1.0500 
+ +0:vdd     =   1.0500  0:vi      =   0.      0:vo      = 185.6666n
 
 
- maximum nodal capacitance=   2.207E-13         on node     0:out4            
+ maximum nodal capacitance=   2.207E-13         on node     0:vo              
 
     nodal  capacitance table 
 
-     node    =    cap       node    =    cap       node    =    cap
+    node    =    cap      node    =    cap      node    =    cap
 
- + 0:mid1    =  22.1403f  0:mid2    =  12.2149f  0:mid3    =  29.9604f
- + 0:mid4    =   9.2369f  0:mid5    =  27.5449f  0:mid6    =  74.3749f
- + 0:out1    = 177.5107f  0:out2    = 191.3286f  0:out3    = 193.5208f
- + 0:out4    = 220.7265f  0:vdd     = 146.5865f  0:vi      =  10.9517f
+ +0:out1    =   9.2369f 0:out2    =  27.5449f 0:out3    =  74.3749f
+ +0:vdd     =  87.1305f 0:vi      =   2.7379f 0:vo      = 220.7265f
 
  
  ******
  inverter
 
  ****** transient analysis tnom=  25.000 temp=  25.000 ******
- tphl_1= 643.4434p  targ=  12.0006u   trig=  12.0000u
- tplh_1= 537.8886p  targ=  17.0005u   trig=  17.0000u
- tpd_1= 105.5548p
- tp_1= 590.6660p
- tphh_2= 219.8647p  targ=  12.0002u   trig=  12.0000u
- tpll_2= 213.9007p  targ=  17.0002u   trig=  17.0000u
- tpd_2=   5.9639p
- tp_2= 216.8827p
- tphl_3= 214.4477p  targ=  12.0002u   trig=  12.0000u
- tplh_3= 194.0292p  targ=  17.0002u   trig=  17.0000u
- tpd_3=  20.4185p
- tp_3= 204.2385p
- tphh_4= 211.6314p  targ=  12.0002u   trig=  12.0000u
- tpll_4= 208.2293p  targ=  17.0002u   trig=  17.0000u
- tpd_4=   3.4022p
- tp_4= 209.9304p
+ tphl=   5.0002u  targ=  17.0002u   trig=  12.0000u
+ tplh=  -4.9998u  targ=  12.0002u   trig=  17.0000u
+ tp= 211.3090p
 
           ***** job concluded
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
@@ -1238,7 +1215,7 @@
  ******  Machine Information  ******
  CPU:
  model name	: Intel(R) Xeon(R) Silver 4214Y CPU @ 2.20GHz
- cpu MHz	: 2194.843
+ cpu MHz	: 2194.844
   
  OS:
  Linux version 4.18.0-553.16.1.el8_10.x86_64 (mockbuild@x86-64-01.build.eng.rdu2.redhat.com) (gcc version 8.5.0 20210514 (Red Hat 8.5.0-22) (GCC)) #1 SMP Thu Aug 1 04:16:12 EDT 2024
@@ -1255,12 +1232,12 @@
   Voltage Sources :       1
 
   ******  Circuit Statistics  ******
-  # nodes       =      13 # elements   =      26
-  # resistors   =       0 # capacitors =       4 # inductors   =       0
+  # nodes       =       7 # elements   =      11
+  # resistors   =       0 # capacitors =       1 # inductors   =       0
   # mutual_inds =       0 # vccs       =       0 # vcvs        =       0
   # cccs        =       0 # ccvs       =       0 # volt_srcs   =       2
   # curr_srcs   =       0 # diodes     =       0 # bjts        =       0
-  # jfets       =       0 # mosfets    =      20 # U elements  =       0
+  # jfets       =       0 # mosfets    =       8 # U elements  =       0
   # T elements  =       0 # W elements =       0 # B elements  =       0
   # S elements  =       0 # P elements =       0 # va device   =       0
   # vector_srcs =       0 # N elements =       0
@@ -1269,19 +1246,19 @@
   ******  Runtime Statistics (seconds)  ******
 
   analysis           time    # points   tot. iter  conv.iter
-  op point           0.00           1          15
-  transient          1.66    30000001        3513        1429 rev=        61
-  readin             1.09
+  op point           0.00           1           9
+  transient          0.97    30000001        1880         792 rev=        46
+  readin             1.10
   errchk             0.00
-  setup              0.01
+  setup              0.00
   output             0.00
 
 
-           peak memory used       2964.31 megabytes
-           total cpu time            3.33 seconds
-           total elapsed time        4.05 seconds
-           job started at     23:48:30 11/20/2024
-           job ended   at     23:48:34 11/20/2024
+           peak memory used       1579.02 megabytes
+           total cpu time            2.37 seconds
+           total elapsed time        2.56 seconds
+           job started at     13:09:42 11/21/2024
+           job ended   at     13:09:45 11/21/2024
 
 
  lic: Release hspice token(s) 
