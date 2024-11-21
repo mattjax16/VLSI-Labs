@@ -160,26 +160,30 @@ CLOAD4 out4 gnd c_load
 ** Chain 1
 .measure tran tphl_1 trig v(vi) val='vdd*0.5' rise=2 targ v(out1) val='vdd*0.5' fall=2
 .measure tran tplh_1 trig v(vi) val='vdd*0.5' fall=2 targ v(out1) val='vdd*0.5' rise=2
-.measure tran tpd_1 param='tphl_1-tplh_1' goal=0
-.measure tran tp_1 param='tphl_1+tplh_1' goal=0
+* .measure tran tpd_1 param='tphl_1-tplh_1' goal=0
+* .measure tran tp_1 param='tphl_1+tplh_1' goal=0
+.measure tran tp_1 param='(tphl_1+tplh_1)/2' goal=0
 
 ** Chain 2
 .measure tran tphh_2 trig v(vi) val='vdd*0.5' rise=2 targ v(out2) val='vdd*0.5' rise=2
 .measure tran tpll_2 trig v(vi) val='vdd*0.5' fall=2 targ v(out2) val='vdd*0.5' fall=2
-.measure tran tpd_2 param='tphh_2-tpll_2' goal=0
-.measure tran tp_2 param='tphh_2+tpll_2' goal=0
+* .measure tran tpd_2 param='tphh_2-tpll_2' goal=0
+* .measure tran tp_2 param='tphh_2+tpll_2' goal=0
+.measure tran tp_2 param='(tphh_2+tpll_2)/2' goal=0
 
 ** Chain 3
 .measure tran tphl_3 trig v(vi) val='vdd*0.5' rise=2 targ v(out3) val='vdd*0.5' fall=2
 .measure tran tplh_3 trig v(vi) val='vdd*0.5' fall=2 targ v(out3) val='vdd*0.5' rise=2
-.measure tran tpd_3 param='tphl_3-tplh_3' goal=0
-.measure tran tp_3 param='tphl_3+tplh_3' goal=0
+* .measure tran tpd_3 param='tphl_3-tplh_3' goal=0
+* .measure tran tp_3 param='tphl_3+tplh_3' goal=0
+.measure tran tp_3 param='(tphl_3+tplh_3)/2' goal=0
 
 ** Chain 4
 .measure tran tphh_4 trig v(vi) val='vdd*0.5' rise=2 targ v(out4) val='vdd*0.5' rise=2
 .measure tran tpll_4 trig v(vi) val='vdd*0.5' fall=2 targ v(out4) val='vdd*0.5' fall=2
-.measure tran tpd_4 param='tphh_4-tpll_4' goal=0
-.measure tran tp_4 param='tphh_4+tpll_4' goal=0
+* .measure tran tpd_4 param='tphh_4-tpll_4' goal=0
+* .measure tran tp_4 param='tphh_4+tpll_4' goal=0
+.measure tran tp_4 param='(tphh_4+tpll_4)/2' goal=0
 
 
 
@@ -194,7 +198,8 @@ CLOAD4 out4 gnd c_load
 * .measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
 * .measure tran tpd param='tphl-tplh' goal=0
 
-.tran 1p '3*per' sweep optimize=OPTrange RESULTS=tpd_1,tpd_2,tpd_3,tpd_4 MODEL=OPT1
+* .tran 1p '3*per' sweep optimize=OPTrange RESULTS=tpd_1,tpd_2,tpd_3,tpd_4 MODEL=OPT1
+.tran 1p '3*per' sweep optimize=OPTrange RESULTS=tp_1,tp_2,tp_3,tp_4 MODEL=OPT1
 
 .end
 
