@@ -189,9 +189,32 @@ XINV vi vo vdd gnd inverter W_p=wp W_n=300n
 
 *** Comment out Part A and uncomment Part B for second optimization
 *** Part B: Optimize for minimum average delay tp = (tpHL + tpLH) / 2
-.measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2
-.measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
-.measure tran tp param='(tplh+tphl)/2' goal=0
-.tran 1p '3*per' sweep optimize=optrange results=tp model=OPT1 * Run optimization
+* .measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2
+* .measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
+* .measure tran tp param='(tplh+tphl)/2' goal=0
+* .tran 1p '3*per' sweep optimize=optrange results=tp model=OPT1 * Run optimization
+
+
+
+**########### Question 3 Optimizing PMOS Width in a CMOS Inverter for  Switching Threshold in a Balanced CMOS Inverter ###########**
+* Use the same CMOS inverter setting in Problem 2. Use the HSPICE Optimization
+* tool to find the width of the PMOS for the following requirement:
+* a. Switching threshold (Vm) equals to half of Vdd. (Balanced Inverter)
+* You will need to use a new measure command. An example is given below:
+* .Dc vc 0 1.2 0.02 sweep optimize=optrange2 Results=wid Model=opt1
+* .measure DC wid FIND V(2) WHEN V(1)='0.1*Vdd'
+*Then you can run optimization on this measurement
+*.MEASURE <DC|TRAN|AC> result FIND out_var1 WHEN out_var2 = out_var3
+*+ <TD = val > < RISE = r | LAST > < FALL = f | LAST >
+*+ <CROSS = c | LAST> <GOAL = val> <MINVAL = val> <WEIGHT = val>
+*this command find the voltage value at node ‘2’ when the voltage value at node ‘1’
+* equals *0.1*Vdd
+
+
+* Measure Switching Threshold (Vm) = Vdd/2
+.measure dc vm find v(vi) when v(vo)='0.5*vdd' goal='vdd/2'
+
+* DC sweep with optimization
+.dc vi 0 1.05 0.01 sweep optimize=OPTrange results=vm model=OPT1
 
 .end
