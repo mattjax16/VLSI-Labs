@@ -159,6 +159,9 @@ vinput vi gnd pulse 0 vdd del trf trf pw per
 * .measure tran tp param='(tphh+tpll)/2' goal=0
 
 
+** Running Sim
+* .tran 1p '3*per' sweep optimize=OPTrange RESULTS=tp MODEL=OPT1
+
 
 
 
@@ -170,20 +173,25 @@ vinput vi gnd pulse 0 vdd del trf trf pw per
 * b. Have the smallest average propagation delay (hint: make (𝑡𝑝𝐿𝐻 + 𝑡𝑝𝐻𝐿)/2 as
 * close to zero as possible)
 
+* Making inverter to be optimized
 XINV vi vo vdd gnd inverter W_p=wp W_n=300n
 
-* Measure the tpd and tp
-.measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2 
-.measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
-.measure tran tpd param='tphl-tplh' goal=0
-.measure tran tp param='(tphl+tplh)/2' goal=0
-
-
-
-**** Running Sim ****
+* Optimization Model
 .model opt1 opt
 .param wp = OPTrange(400n, 200n, 1000n)
 
-.tran 1p '3*per' sweep optimize=OPTrange RESULTS=tp MODEL=OPT1
+
+* Part A: Optimize for tpLH - tpHL = 0
+.measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2
+.measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
+.measure tran tpd param='tplh-tphl' goal=0
+.tran 1p '3*per' sweep optimize=optrange results=tpd model=OPT1 * Run optimization
+
+* * Comment out Part A and uncomment Part B for second optimization
+* * Part B: Optimize for minimum average delay tp = (tpHL + tpLH) / 2
+* .measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2
+* .measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
+* .measure tran tp param='(tplh+tphl)/2' goal=0
+* .tran 1p '3*per' sweep optimize=optrange results=tp model=OPT1 * Run optimization
 
 .end
