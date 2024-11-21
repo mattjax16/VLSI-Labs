@@ -5,12 +5,12 @@
   with the terms and conditions of a written license agreement with
   Synopsys, Inc. All other use, reproduction, or distribution of
   this software is strictly prohibited.
-  Input File: ref.sp                                                            
-  Command line options: /usr/cots/synopsys/HSPICE-K-2015.06-3/hspice/linux64/hspice -i ref.sp -o ref-n2.lis
+  Input File: lab04.sp                                                          
+  Command line options: /usr/cots/synopsys/HSPICE-K-2015.06-3/hspice/linux64/hspice -i lab04.sp -o lab04-q1-d-n2.lis
  lic:  
  lic: FLEXlm: v11.2.1 
  lic: USER:   mbass01              HOSTNAME: vm-hw09 
- lic: HOSTID: 005056000009         PID:      863560 
+ lic: HOSTID: 005056000009         PID:      861484 
  lic: Using FLEXlm license file: 
  lic: 27000@vm-license1 
  lic: Checkout 1 hspice 
@@ -18,6 +18,7 @@
  lic: 1(in_use)/50(total) FLOATING license(s) on SERVER 27000@vm-license1 
  lic:   
  Init: read install configuration file: /usr/cots/synopsys/HSPICE-K-2015.06-3/hspice/meta.cfg
+  **warning** (lab04.sp:61) Global net name, "vdd", in subckt pin list. The pin will be connected to the local net. Recommend to not use global net names in subckt pin lists.
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
  ******  
  inverter
@@ -26,14 +27,14 @@
  circuit number to circuit name directory
    number circuitname                     definition         multiplier
         0 main circuit
-        1 xinv1.                          inv1               1.00 
-        2 xinv2.                          inv2               1.00 
+        1 xinv_1.                         inverter           1.00 
+        2 xinv_2.                         inverter           1.00 
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
  ******  
  inverter
 
  ****** mos   model parameters tnom=  25.000 temp=  25.000 ******
- Model file: ref.sp
+ Model file: lab04.sp
  Model line:           12
  Model Name: n105  
  BSIM4 Model (Level 54)
@@ -578,7 +579,7 @@
     PFGISL      =      0 
     PKGISL      =      0 
     PRGISL      =      0 
- Model file: ref.sp
+ Model file: lab04.sp
  Model line:           13
  Model Name: p105  
  BSIM4 Model (Level 54)
@@ -1139,8 +1140,8 @@
       max= 600.00k           itropt=  20.00            cendif=   1.00n        
    difsiz=   1.00m           parmin= 100.00m        
   
-  **warning** (ref.sp:17) Both nodes of element vgnd are connected together; Line ignored.
-  **info** (ref.sp:64) DC voltage reset to initial transient source value in source            0:vinput. new dc=  0.0000D+00
+  **warning** (lab04.sp:17) Both nodes of element vgnd are connected together; Line ignored.
+  **info** (lab04.sp:36) DC voltage reset to initial transient source value in source            0:vinput. new dc=  0.0000D+00
   
       
  **info** set option symb=1 internally to help for convergence.
@@ -1149,12 +1150,12 @@
  ******
  runlvl  = 3         bypass  = 2         
   Opening plot unit= 15
- file=ref-n2.pa0
+ file=lab04-q1-d-n2.pa0
 
 
      optimization  results
 
-          residual sum of squares     =   11.3611    
+          residual sum of squares     =   48293.2    
           norm of the gradient        =   0.00000    
           marquardt scaling parameter =   1.00000    
           no. of function evaluations =        2
@@ -1179,8 +1180,8 @@
  ****** operating point status is voltage   simulation time is     0.     
     node    =voltage      node    =voltage      node    =voltage
 
- +0:vdd     =   1.0500  0:vi      =   0.      0:vo      = 113.2820n
- +0:vo1     =   1.0500 
+ +0:out1    =   1.0500  0:vdd     =   1.0500  0:vi      =   0.     
+ +0:vo      = 113.2820n
 
 
  maximum nodal capacitance=   1.913E-13         on node     0:vo              
@@ -1189,8 +1190,8 @@
 
     node    =    cap      node    =    cap      node    =    cap
 
- +0:vdd     =  22.4783f 0:vi      =   2.7379f 0:vo      = 191.3286f
- +0:vo1     =  22.1403f
+ +0:out1    =  22.1403f 0:vdd     =  22.4783f 0:vi      =   2.7379f
+ +0:vo      = 191.3286f
 
  
  ******
@@ -1200,6 +1201,7 @@
  tphh= 220.2253p  targ=  12.0002u   trig=  12.0000u
  tpll= 218.6226p  targ=  17.0002u   trig=  17.0000u
  tpd=   1.6026p
+ tp= 219.4240p
 
           ***** job concluded
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
@@ -1244,18 +1246,18 @@
 
   analysis           time    # points   tot. iter  conv.iter
   op point           0.00           1           9
-  transient          0.97    30000001        1465         648 rev=        52
-  readin             1.09
-  errchk             0.01
+  transient          0.96    30000001        1465         648 rev=        52
+  readin             1.10
+  errchk             0.00
   setup              0.00
   output             0.00
 
 
-           peak memory used       1579.03 megabytes
-           total cpu time            2.36 seconds
-           total elapsed time        2.46 seconds
-           job started at     00:25:33 11/21/2024
-           job ended   at     00:25:35 11/21/2024
+           peak memory used       1579.02 megabytes
+           total cpu time            2.37 seconds
+           total elapsed time        2.44 seconds
+           job started at     00:15:18 11/21/2024
+           job ended   at     00:15:20 11/21/2024
 
 
  lic: Release hspice token(s) 

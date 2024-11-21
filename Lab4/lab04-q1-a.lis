@@ -9,8 +9,8 @@
   Command line options: /usr/cots/synopsys/HSPICE-K-2015.06-3/hspice/linux64/hspice -i lab04.sp -o lab04-q1-a.lis
  lic:  
  lic: FLEXlm: v11.2.1 
- lic: USER:   mbass01              HOSTNAME: vm-hw08 
- lic: HOSTID: 005056000008         PID:      2008591 
+ lic: USER:   mbass01              HOSTNAME: vm-hw02 
+ lic: HOSTID: 005056000002         PID:      1223946 
  lic: Using FLEXlm license file: 
  lic: 27000@vm-license1 
  lic: Checkout 1 hspice 
@@ -18,6 +18,7 @@
  lic: 1(in_use)/50(total) FLOATING license(s) on SERVER 27000@vm-license1 
  lic:   
  Init: read install configuration file: /usr/cots/synopsys/HSPICE-K-2015.06-3/hspice/meta.cfg
+  **warning** (lab04.sp:61) Global net name, "vdd", in subckt pin list. The pin will be connected to the local net. Recommend to not use global net names in subckt pin lists.
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
  ******  
  inverter
@@ -26,14 +27,14 @@
  circuit number to circuit name directory
    number circuitname                     definition         multiplier
         0 main circuit
-        1 xinv1.                          inv1               1.00 
+        1 xinv.                           inverter           1.00 
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
  ******  
  inverter
 
  ****** mos   model parameters tnom=  25.000 temp=  25.000 ******
  Model file: lab04.sp
- Model line:           19
+ Model line:           12
  Model Name: n105  
  BSIM4 Model (Level 54)
     MOBMOD = 0
@@ -578,7 +579,7 @@
     PKGISL      =      0 
     PRGISL      =      0 
  Model file: lab04.sp
- Model line:           20
+ Model line:           13
  Model Name: p105  
  BSIM4 Model (Level 54)
     MOBMOD = 0
@@ -1122,22 +1123,9 @@
     PFGISL      =      0 
     PKGISL      =      0 
     PRGISL      =      0 
-  **warning** (lab04.sp:24) Both nodes of element vgnd are connected together; Line ignored.
-  **info** (lab04.sp:43) DC voltage reset to initial transient source value in source            0:vinput. new dc=  0.0000D+00
+  **warning** (lab04.sp:17) Both nodes of element vgnd are connected together; Line ignored.
+  **info** (lab04.sp:36) DC voltage reset to initial transient source value in source            0:vinput. new dc=  0.0000D+00
   
-
-  **warning** the following singular supplies were terminated to 1 meg resistor 
-          supply       node1            node2
-(lab04.sp:43)vinput                  0:vi               defined in subckt 0                     0:0                defined in subckt 0               
-             
- Warning:'No DC path nodes' occurs 1 times
- No DC path from the following nodes,connected with gdcpath:
- -----------------------
- |Node      |Subckt    |
- |----------+----------|
- |in        |0         |
- -----------------------
-              
       
  *****************************************************************
  ******  option summary
@@ -1155,20 +1143,26 @@
  ****** operating point status is voltage   simulation time is     0.     
     node    =voltage      node    =voltage      node    =voltage
 
- +0:in      =   0.      0:out     =   1.0500  0:vdd     =   1.0500 
- +0:vi      =   0.     
+ +0:vdd     =   1.0500  0:vi      =   0.      0:vo      =   1.0500 
 
 
- maximum nodal capacitance=   2.738E-15         on node     0:in              
+ maximum nodal capacitance=   2.738E-15         on node     0:vi              
 
     nodal  capacitance table 
 
     node    =    cap      node    =    cap      node    =    cap
 
- +0:in      =   2.7379f 0:out     =   2.2851f 0:vdd     =   2.7088f
- +0:vi      =   0.     
+ +0:vdd     =   2.7088f 0:vi      =   2.7379f 0:vo      =   2.2851f
 
  
+ ******
+ inverter
+
+ ****** transient analysis tnom=  25.000 temp=  25.000 ******
+ tphl=  13.5281p  targ=  12.0000u   trig=  12.0000u
+ tplh=  12.0160p  targ=  17.0000u   trig=  17.0000u
+ tpd=   1.5121p
+ tp=  12.7721p
 
           ***** job concluded
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
@@ -1181,7 +1175,7 @@
  ******  Machine Information  ******
  CPU:
  model name	: Intel(R) Xeon(R) Silver 4214Y CPU @ 2.20GHz
- cpu MHz	: 2194.843
+ cpu MHz	: 2194.844
   
  OS:
  Linux version 4.18.0-553.16.1.el8_10.x86_64 (mockbuild@x86-64-01.build.eng.rdu2.redhat.com) (gcc version 8.5.0 20210514 (Red Hat 8.5.0-22) (GCC)) #1 SMP Thu Aug 1 04:16:12 EDT 2024
@@ -1198,8 +1192,8 @@
   Voltage Sources :       1
 
   ******  Circuit Statistics  ******
-  # nodes       =       5 # elements   =       5
-  # resistors   =       1 # capacitors =       0 # inductors   =       0
+  # nodes       =       4 # elements   =       4
+  # resistors   =       0 # capacitors =       0 # inductors   =       0
   # mutual_inds =       0 # vccs       =       0 # vcvs        =       0
   # cccs        =       0 # ccvs       =       0 # volt_srcs   =       2
   # curr_srcs   =       0 # diodes     =       0 # bjts        =       0
@@ -1213,18 +1207,18 @@
 
   analysis           time    # points   tot. iter  conv.iter
   op point           0.00           1           7
-  transient          0.31    30000001         302         151 rev=        12
-  readin             1.11
-  errchk             0.01
+  transient          0.32    30000001         449         193 rev=         8
+  readin             1.09
+  errchk             0.00
   setup              0.00
   output             0.00
 
 
            peak memory used        275.39 megabytes
-           total cpu time            1.43 seconds
+           total cpu time            1.41 seconds
            total elapsed time        0.96 seconds
-           job started at     12:36:08 11/19/2024
-           job ended   at     12:36:09 11/19/2024
+           job started at     10:09:49 11/21/2024
+           job ended   at     10:09:50 11/21/2024
 
 
  lic: Release hspice token(s) 

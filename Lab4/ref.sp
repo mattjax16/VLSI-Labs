@@ -39,28 +39,26 @@ M1 out in vdd vdd p105 W=600n L=100n
 M2 out in gnd gnd n105 W=300n L=100n 
 .ends inv1
 
-* times 8, or times 4, or times 2.8
+* time 8
 .subckt inv2 in out 
-M1 out in vdd vdd p105 W=1680n L=100n
-M2 out in gnd gnd n105 W=840n L=100n
+M1 out in vdd vdd p105 W=4800n L=100n
+M2 out in gnd gnd n105 W=2400n L=100n
 .ends inv2
 
-*times 16, or times 8
 .subckt inv3 in out
-M1 out in vdd vdd p105 W=4800n L=100n 
-M2 out in gnd gnd n105 W=2400n L=100n 
+M1 out in vdd vdd p105 W=600n L=100n 
+M2 out in gnd gnd n105 W=300n L=100n 
 .ends inv3 
 
-*times 22.6
 .subckt inv4 in out 
-M1 out in vdd vdd p105 W=13560n L=100n 
-M2 out in gnd gnd n105 W=6780n L=100n 
+M1 out in vdd vdd p105 W=600n L=100n 
+M2 out in gnd gnd n105 W=100n L=100n 
 .ends inv4
 
 XINV1 vi vo1 inv1
-XINV2 vo1 vo2 inv2
-XINV3 vo2 vo3 inv3
-XINV4 vo3 vo inv4
+XINV2 vo1 vo inv2
+*XINV3 out3 out2 inv3
+*XINV4 out4 out3 inv4
 
 *define analysis voltage
 vinput vi gnd pulse 0 vdd del trf trf pw per

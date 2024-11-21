@@ -10,7 +10,7 @@
  lic:  
  lic: FLEXlm: v11.2.1 
  lic: USER:   mbass01              HOSTNAME: vm-hw09 
- lic: HOSTID: 005056000009         PID:      849792 
+ lic: HOSTID: 005056000009         PID:      862407 
  lic: Using FLEXlm license file: 
  lic: 27000@vm-license1 
  lic: Checkout 1 hspice 
@@ -1153,7 +1153,7 @@
 
      optimization  results
 
-          residual sum of squares     =   2285.79    
+          residual sum of squares     =   10553.8    
           norm of the gradient        =   0.00000    
           marquardt scaling parameter =   1.00000    
           no. of function evaluations =        2
@@ -1181,22 +1181,23 @@
  +0:vdd     =   1.0500  0:vi      =   0.      0:vo      =   1.0500 
 
 
- maximum nodal capacitance=   1.798E-13         on node     0:vo              
+ maximum nodal capacitance=   1.775E-13         on node     0:vo              
 
     nodal  capacitance table 
 
     node    =    cap      node    =    cap      node    =    cap
 
- +0:vdd     =   5.4176f 0:vi      =   5.4758f 0:vo      = 179.7959f
+ +0:vdd     =   2.7088f 0:vi      =   2.7379f 0:vo      = 177.5107f
 
  
  ******
  inverter
 
  ****** transient analysis tnom=  25.000 temp=  25.000 ******
- tphl= 338.3856p  targ=  12.0003u   trig=  12.0000u
- tplh= 290.9565p  targ=  17.0003u   trig=  17.0000u
- tpd=  47.4291p
+ tphl= 689.0917p  targ=  12.0007u   trig=  12.0000u
+ tplh= 561.3234p  targ=  17.0006u   trig=  17.0000u
+ tpd= 127.7682p
+ tp= 625.2075p
 
           ***** job concluded
 1****** HSPICE -- K-2015.06-3 linux64 (Aug  5 2015) ******                      
@@ -1226,12 +1227,12 @@
   Voltage Sources :       1
 
   ******  Circuit Statistics  ******
-  # nodes       =       4 # elements   =       7
+  # nodes       =       4 # elements   =       5
   # resistors   =       0 # capacitors =       1 # inductors   =       0
   # mutual_inds =       0 # vccs       =       0 # vcvs        =       0
   # cccs        =       0 # ccvs       =       0 # volt_srcs   =       2
   # curr_srcs   =       0 # diodes     =       0 # bjts        =       0
-  # jfets       =       0 # mosfets    =       4 # U elements  =       0
+  # jfets       =       0 # mosfets    =       2 # U elements  =       0
   # T elements  =       0 # W elements =       0 # B elements  =       0
   # S elements  =       0 # P elements =       0 # va device   =       0
   # vector_srcs =       0 # N elements =       0
@@ -1241,8 +1242,8 @@
 
   analysis           time    # points   tot. iter  conv.iter
   op point           0.00           1           9
-  transient          0.95    30000001        1316         594 rev=        56
-  readin             1.11
+  transient          0.96    30000001        1443         654 rev=        79
+  readin             1.09
   errchk             0.00
   setup              0.00
   output             0.00
@@ -1250,9 +1251,9 @@
 
            peak memory used       1579.02 megabytes
            total cpu time            2.35 seconds
-           total elapsed time        2.45 seconds
-           job started at     23:32:45 11/20/2024
-           job ended   at     23:32:48 11/20/2024
+           total elapsed time        2.47 seconds
+           job started at     00:18:37 11/21/2024
+           job ended   at     00:18:39 11/21/2024
 
 
  lic: Release hspice token(s) 
