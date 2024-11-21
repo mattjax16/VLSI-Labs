@@ -181,17 +181,17 @@ XINV vi vo vdd gnd inverter W_p=wp W_n=300n
 .param wp = OPTrange(400n, 200n, 1000n)
 
 
-* Part A: Optimize for tpLH - tpHL = 0
-.measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2
-.measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
-.measure tran tpd param='tplh-tphl' goal=0
-.tran 1p '3*per' sweep optimize=optrange results=tpd model=OPT1 * Run optimization
-
-* * Comment out Part A and uncomment Part B for second optimization
-* * Part B: Optimize for minimum average delay tp = (tpHL + tpLH) / 2
+*** Part A: Optimize for tpLH - tpHL = 0
 * .measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2
 * .measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
-* .measure tran tp param='(tplh+tphl)/2' goal=0
-* .tran 1p '3*per' sweep optimize=optrange results=tp model=OPT1 * Run optimization
+* .measure tran tpd param='tplh-tphl' goal=0
+* .tran 1p '3*per' sweep optimize=optrange results=tpd model=OPT1 * Run optimization
+
+*** Comment out Part A and uncomment Part B for second optimization
+*** Part B: Optimize for minimum average delay tp = (tpHL + tpLH) / 2
+.measure tran tphl trig v(vi) val='vdd*0.5' rise=2 targ v(vo) val='vdd*0.5' fall=2
+.measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
+.measure tran tp param='(tplh+tphl)/2' goal=0
+.tran 1p '3*per' sweep optimize=optrange results=tp model=OPT1 * Run optimization
 
 .end
