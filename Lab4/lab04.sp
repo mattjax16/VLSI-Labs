@@ -105,11 +105,8 @@ vinput vi gnd pulse 0 vdd del trf trf pw per
 
 * Define Scaling Factor for Transistor Widths
 * Assuming each subsequent stage doubles the transistor widths
-* Stage 1: W_p=600n, W_n=300n
-* Stage 2: W_p=1200n, W_n=600n
-* Stage 3: W_p=2400n, W_n=1200n
-* Stage 4: W_p=4800n, W_n=2400n
-** This assumption is wrong i need to go back and calc **
+*: W_p=600n, W_n=300n for all stages then scaled by whatever factor specified
+
 
 * Generic Inverter Subcircuit
 .subckt inverter in out vdd gnd W_p=600n W_n=300n
@@ -120,43 +117,72 @@ vinput vi gnd pulse 0 vdd del trf trf pw per
 
 
 * --- Inverter Chain for N=1 ---
+* Scales: 1
 * Output Node: out1
 XINV1_1 vi out1 vdd gnd inverter W_p=600n W_n=300n
 * Load Capacitance
 CLOAD1 out1 gnd c_load
 
 * --- Inverter Chain for N=2 ---
+* Scales: 1, 8
 * Output Nodes: out2
 XINV2_1 vi mid1 vdd gnd inverter W_p=600n W_n=300n
-XINV2_2 mid1 out2 vdd gnd inverter W_p=1200n W_n=600n
+XINV2_2 mid1 out2 vdd gnd inverter W_p=1680n  W_n=840n
 * Load Capacitance
 CLOAD2 out2 gnd c_load
 
 * --- Inverter Chain for N=3 ---
+* Scales: 1, 4, 8
 * Output Nodes: out3
 XINV3_1 vi mid2 vdd gnd inverter W_p=600n W_n=300n
-XINV3_2 mid2 mid3 vdd gnd inverter W_p=1200n W_n=600n
-XINV3_3 mid3 out3 vdd gnd inverter W_p=2400n W_n=1200n
+XINV3_2 mid2 mid3 vdd gnd inverter W_p=1680n W_n=840n
+XINV3_3 mid3 out3 vdd gnd inverter W_p=4800n W_n=2400n
 * Load Capacitance
 CLOAD3 out3 gnd c_load
 
 * --- Inverter Chain for N=4 ---
+* Scales: 1, 2.8, 8, 22.6
 * Output Nodes: out4
 XINV4_1 vi mid4 vdd gnd inverter W_p=600n W_n=300n
-XINV4_2 mid4 mid5 vdd gnd inverter W_p=1200n W_n=600n
-XINV4_3 mid5 mid6 vdd gnd inverter W_p=2400n W_n=1200n
-XINV4_4 mid6 out4 vdd gnd inverter W_p=4800n W_n=2400n
+XINV4_2 mid4 mid5 vdd gnd inverter W_p=1680n W_n=840n
+XINV4_3 mid5 mid6 vdd gnd inverter W_p=4800n W_n=2400n
+XINV4_4 mid6 out4 vdd gnd inverter W_p=13560n W_n=6780n
 * Load Capacitance
 CLOAD4 out4 gnd c_load
 
 
 * Run the simulation for 30u
-.tran 1p 30u
+* .tran 1p 30u
+
+
+*** MEASURE BUFFERS FOR ALL INVERTER CHAINS
+** For ODD use tpHL - tpLH for EVEN use tpHH - tpLL
+** Chain 1
+.measure tran tphl_1 trig v(vi) val='vdd*0.5' rise=2 targ v(out1) val='vdd*0.5' fall=2
+.measure tran tplh_1 trig v(vi) val='vdd*0.5' fall=2 targ v(out1) val='vdd*0.5' rise=2
+.measure tran tpd_1 param='tphl_1-tplh_1' goal=0
+
+** Chain 2
+.measure tran tphh_2 trig v(vi) val='vdd*0.5' rise=2 targ v(out2) val='vdd*0.5' rise=2
+.measure tran tpll_2 trig v(vi) val='vdd*0.5' fall=2 targ v(out2) val='vdd*0.5' fall=2
+.measure tran tpd_2 param='tphh_2-tpll_2' goal=0
+
+** Chain 3
+.measure tran tphl_3 trig v(vi) val='vdd*0.5' rise=2 targ v(out3) val='vdd*0.5' fall=2
+.measure tran tplh_3 trig v(vi) val='vdd*0.5' fall=2 targ v(out3) val='vdd*0.5' rise=2
+.measure tran tpd_3 param='tphl_3-tplh_3' goal=0
+
+** Chain 4
+.measure tran tphh_4 trig v(vi) val='vdd*0.5' rise=2 targ v(out4) val='vdd*0.5' rise=2
+.measure tran tpll_4 trig v(vi) val='vdd*0.5' fall=2 targ v(out4) val='vdd*0.5' fall=2
+.measure tran tpd_4 param='tphh_4-tpll_4' goal=0
+
+
 
 
 **** FROM EXAMPLE ****
-* .model opt1 opt
-* .param wp = OPTrange(400n, 200n, 1000n)
+.model opt1 opt
+.param wp = OPTrange(400n, 200n, 1000n)
 
 
 
@@ -164,7 +190,7 @@ CLOAD4 out4 gnd c_load
 * .measure tran tplh trig v(vi) val='vdd*0.5' fall=2 targ v(vo) val='vdd*0.5' rise=2
 * .measure tran tpd param='tphl-tplh' goal=0
 
-* .tran 1p '3*per' sweep optimize=OPTrange RESULTS=tpd MODEL=OPT1
+.tran 1p '3*per' sweep optimize=OPTrange RESULTS=tpd_1,tpd_2,tpd_3,tpd_4 MODEL=OPT1
 
 .end
 
