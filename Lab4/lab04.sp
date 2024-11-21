@@ -161,16 +161,19 @@ CLOAD4 out4 gnd c_load
 .measure tran tphl_1 trig v(vi) val='vdd*0.5' rise=2 targ v(out1) val='vdd*0.5' fall=2
 .measure tran tplh_1 trig v(vi) val='vdd*0.5' fall=2 targ v(out1) val='vdd*0.5' rise=2
 .measure tran tpd_1 param='tphl_1-tplh_1' goal=0
+.measure tran tp_1 param='tphl_1+tplh_1' goal=0
 
 ** Chain 2
 .measure tran tphh_2 trig v(vi) val='vdd*0.5' rise=2 targ v(out2) val='vdd*0.5' rise=2
 .measure tran tpll_2 trig v(vi) val='vdd*0.5' fall=2 targ v(out2) val='vdd*0.5' fall=2
 .measure tran tpd_2 param='tphh_2-tpll_2' goal=0
+.measure tran tp_2 param='tphh_2+tpll_2' goal=0
 
 ** Chain 3
 .measure tran tphl_3 trig v(vi) val='vdd*0.5' rise=2 targ v(out3) val='vdd*0.5' fall=2
 .measure tran tplh_3 trig v(vi) val='vdd*0.5' fall=2 targ v(out3) val='vdd*0.5' rise=2
 .measure tran tpd_3 param='tphl_3-tplh_3' goal=0
+.measure
 
 ** Chain 4
 .measure tran tphh_4 trig v(vi) val='vdd*0.5' rise=2 targ v(out4) val='vdd*0.5' rise=2
